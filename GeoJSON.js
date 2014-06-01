@@ -1,11 +1,7 @@
-var inside = require('./node_modules/point-in-polygon');
-var URI = require('./node_modules/uri-js');
+var inside = require('point-in-polygon');
+var URI = require('uri-js');
 
-window.GeoJSON = {
-    
-    
-    // Versions below 1.0.0 cannot validate the entire GeoJSON specification.
-    version: '1.0.0b',
+module.exports = {
     
     
     isPosition: function ( x ) {
