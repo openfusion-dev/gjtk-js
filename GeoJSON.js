@@ -1,7 +1,7 @@
 var inside = require('point-in-polygon');
 var URI = require('uri-js');
 
-module.exports = {
+var GeoJSON = module.exports = {
     
     
     isPosition: function ( x ) {
