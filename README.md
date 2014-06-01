@@ -1,17 +1,15 @@
-gjtk-js
-=======
-
 GeoJSON ToolKit
+===============
 
 Installation
 ------------
 
-    npm install dmtucker/gjtk-js
+    npm install gjtk
 
 Usage
 -----
 
-    var GeoJSON = require('gjtk-js');
+    var GeoJSON = require('gjtk');
 
 ### isPosition
 ### isPointCoordinates
