@@ -121,19 +121,24 @@ var GeoJSON = module.exports = {
     
     isLink: function ( x ) {
         // Validate a GeoJSON Link.
-        return (
-            x != null &&
-            x.properties != null &&
-            typeof x.properties.href === 'string' &&
-            URI.parse(x.properties.href).errors.length < 1 &&
-            (
-                typeof x.properties.type === 'undefined' ||
+        try {
+            return (
+                x != null &&
+                x.properties != null &&
+                typeof x.properties.href === 'string' &&
+                URI.parse(x.properties.href) &&
                 (
-                    typeof x.properties.type === 'string' &&
-                    x.properties.type.length > 0
+                    typeof x.properties.type === 'undefined' ||
+                    (
+                        typeof x.properties.type === 'string' &&
+                        x.properties.type.length > 0
+                    )
                 )
-            )
-        );
+            );
+        }
+        catch (e) {
+            return false;
+        }
     },
     
     
