@@ -46,13 +46,13 @@ var GeoJSON = module.exports = {
 
 
     isPointPosition: function ( x ) {
-        // Validate the coordinates of a GeoJSON Point.
+        // Validate the position of a GeoJSON Point.
         return GeoJSON.isPosition(x);
     },
     
     
     isMultiPointPosition: function ( x ) {
-        // Validate the coordinates of a GeoJSON MultiPoint.
+        // Validate the position of a GeoJSON MultiPoint.
         return (
             Array.isArray(x) &&
             x.every(GeoJSON.isPosition)
@@ -61,7 +61,7 @@ var GeoJSON = module.exports = {
     
     
     isLineStringPosition: function ( x ) {
-        // Validate the coordinates of a GeoJSON LineString.
+        // Validate the position of a GeoJSON LineString.
         return (
             Array.isArray(x) &&
             x.length > 1 &&
@@ -71,7 +71,7 @@ var GeoJSON = module.exports = {
     
     
     isLinearRingPosition: function ( x ) {
-        // Validate the coordinates of a GeoJSON LinearRing.
+        // Validate the position of a GeoJSON LinearRing.
         return (
             Array.isArray(x) &&
             x.length > 3 &&
@@ -82,7 +82,7 @@ var GeoJSON = module.exports = {
     
     
     isMultiLineStringPosition: function ( x ) {
-        // Validate the coordinates of a GeoJSON MultiLineString.
+        // Validate the position of a GeoJSON MultiLineString.
         return (
             Array.isArray(x) &&
             x.every(GeoJSON.isLineStringPosition)
@@ -91,16 +91,16 @@ var GeoJSON = module.exports = {
     
     
     isPolygonPosition: function ( x ) {
-        // Validate the coordinates of a GeoJSON Polygon.
+        // Validate the position of a GeoJSON Polygon.
         return (
             Array.isArray(x) &&
             x.every(GeoJSON.isLinearRingPosition) &&
             x.every(
-                function ( LinearRingCoordinates , i , PolygonCoordinates ) {
+                function ( LinearRingPosition , i , PolygonPosition ) {
                     if (i == 0) return true;
                     else return GeoJSON.containedPolygon(
-                        LinearRingCoordinates,
-                        PolygonCoordinates[0]
+                        LinearRingPosition,
+                        PolygonPosition[0]
                     );
                 }
             )
@@ -109,7 +109,7 @@ var GeoJSON = module.exports = {
     
     
     isMultiPolygonPosition: function ( x ) {
-        // Validate the coordinates of a GeoJSON MultiPolygon.
+        // Validate the position of a GeoJSON MultiPolygon.
         return (
             Array.isArray(x) &&
             x.every(GeoJSON.isPolygonPosition)
@@ -404,15 +404,15 @@ var GeoJSON = module.exports = {
     positionsOf: function ( geojson ) {
         // Find all the Positions in a valid GeoJSON object.
         var positions = [];
-        var extractLineStringPositions = function ( LineStringCoordinates ) {
-            LineStringCoordinates.forEach(
+        var extractLineStringPositions = function ( LineStringPosition ) {
+            LineStringPosition.forEach(
                 function ( Position ) {
                     positions.push(Position);
                 }
             );
         };
-        var extractPolygonPositions = function ( PolygonCoordinates ) {
-            PolygonCoordinates.forEach(extractLineStringPositions);
+        var extractPolygonPositions = function ( PolygonPosition ) {
+            PolygonPosition.forEach(extractLineStringPositions);
         };
         switch (geojson.type) {
             case 'Point':
