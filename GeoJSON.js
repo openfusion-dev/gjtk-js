@@ -2,6 +2,9 @@ var inside = require('point-in-polygon');
 var URI = require('uri-js');
 
 var GeoJSON = module.exports = {
+
+
+///////////////////////////////////////////////////////////////////// VALIDATION
     
     
     isGeoJSON: function ( x ) {
@@ -40,15 +43,15 @@ var GeoJSON = module.exports = {
             )
         );
     },
-    
-    
-    isPointCoordinates: function ( x ) {
+
+
+    isPointPosition: function ( x ) {
         // Validate the coordinates of a GeoJSON Point.
         return GeoJSON.isPosition(x);
     },
     
     
-    isMultiPointCoordinates: function ( x ) {
+    isMultiPointPosition: function ( x ) {
         // Validate the coordinates of a GeoJSON MultiPoint.
         return (
             Array.isArray(x) &&
@@ -62,7 +65,7 @@ var GeoJSON = module.exports = {
         return (
             Array.isArray(x) &&
             x.length > 1 &&
-            GeoJSON.isMultiPointCoordinates(x)
+            GeoJSON.isMultiPointPosition(x)
         );
     },
     
@@ -119,7 +122,7 @@ var GeoJSON = module.exports = {
         return (
             x != null &&
             x.type === 'Point' &&
-            GeoJSON.isPointCoordinates(x.coordinates) &&
+            GeoJSON.isPointPosition(x.coordinates) &&
             GeoJSON.validCRS(x) &&
             GeoJSON.validBbox(x)
         );
@@ -131,7 +134,7 @@ var GeoJSON = module.exports = {
         return (
             x != null &&
             x.type === 'MultiPoint' &&
-            GeoJSON.isMultiPointCoordinates(x.coordinates) &&
+            GeoJSON.isMultiPointPosition(x.coordinates) &&
             GeoJSON.validCRS(x) &&
             GeoJSON.validBbox(x)
         );
@@ -305,7 +308,7 @@ var GeoJSON = module.exports = {
     },
     
     
-///////////////////////////////////////////////////////////////////////////// 80
+//////////////////////////////////////////////////////////////////////// UTILITY
     
     
     equalPositions: function ( a , b ) {
@@ -511,6 +514,21 @@ var GeoJSON = module.exports = {
                 break;
         }
         return geometries;
+    },
+    
+    
+///////////////////////////////////////////////////////////////////// DEPRECATED
+    
+    
+    isPointCoordinates: function ( x ) {
+        // DEPRECATED: Use isPointPosition.
+        return GeoJSON.isPointPosition(x);
+    },
+    
+    
+    isMultiPointCoordinates: function ( x ) {
+        // DEPRECATED: Use isMultiPointPosition.
+        return GeoJSON.isMultiPointPosition(x);
     }
     
     
