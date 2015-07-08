@@ -3,6 +3,7 @@
 gjtk is a library for working with [GeoJSON](http://geojson.org/).
 
 ## Installation
+`gjtk` is available on [npm](//www.npmjs.com/package/gjtk).
 ``` sh
 npm install gjtk
 ```
