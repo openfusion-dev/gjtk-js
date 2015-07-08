@@ -60,7 +60,7 @@ var GeoJSON = module.exports = {
     },
     
     
-    isLineStringCoordinates: function ( x ) {
+    isLineStringPosition: function ( x ) {
         // Validate the coordinates of a GeoJSON LineString.
         return (
             Array.isArray(x) &&
@@ -75,7 +75,7 @@ var GeoJSON = module.exports = {
         return (
             Array.isArray(x) &&
             x.length > 3 &&
-            GeoJSON.isLineStringCoordinates(x) &&
+            GeoJSON.isLineStringPosition(x) &&
             GeoJSON.equalPositions(x[0],x[x.length-1])
         );
     },
@@ -85,7 +85,7 @@ var GeoJSON = module.exports = {
         // Validate the coordinates of a GeoJSON MultiLineString.
         return (
             Array.isArray(x) &&
-            x.every(GeoJSON.isLineStringCoordinates)
+            x.every(GeoJSON.isLineStringPosition)
         );
     },
     
@@ -146,7 +146,7 @@ var GeoJSON = module.exports = {
         return (
             x != null &&
             x.type === 'LineString' &&
-            GeoJSON.isLineStringCoordinates(x.coordinates) &&
+            GeoJSON.isLineStringPosition(x.coordinates) &&
             GeoJSON.validCRS(x) &&
             GeoJSON.validBbox(x)
         );
@@ -529,6 +529,12 @@ var GeoJSON = module.exports = {
     isMultiPointCoordinates: function ( x ) {
         // DEPRECATED: Use isMultiPointPosition.
         return GeoJSON.isMultiPointPosition(x);
+    },
+    
+    
+    isLineStringCoordinates: function ( x ) {
+        // DEPRECATED: Use isLineStringPosition.
+        return GeoJSON.isLineStringPosition(x);
     }
     
     
