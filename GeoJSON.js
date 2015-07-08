@@ -70,7 +70,7 @@ var GeoJSON = module.exports = {
     },
     
     
-    isLinearRingCoordinates: function ( x ) {
+    isLinearRingPosition: function ( x ) {
         // Validate the coordinates of a GeoJSON LinearRing.
         return (
             Array.isArray(x) &&
@@ -94,7 +94,7 @@ var GeoJSON = module.exports = {
         // Validate the coordinates of a GeoJSON Polygon.
         return (
             Array.isArray(x) &&
-            x.every(GeoJSON.isLinearRingCoordinates) &&
+            x.every(GeoJSON.isLinearRingPosition) &&
             x.every(
                 function ( LinearRingCoordinates , i , PolygonCoordinates ) {
                     if (i == 0) return true;
@@ -535,6 +535,12 @@ var GeoJSON = module.exports = {
     isLineStringCoordinates: function ( x ) {
         // DEPRECATED: Use isLineStringPosition.
         return GeoJSON.isLineStringPosition(x);
+    },
+    
+    
+    isLinearRingCoordinates: function ( x ) {
+        // DEPRECATED: Use isLinearRingPosition.
+        return GeoJSON.isLinearRingPosition(x);
     }
     
     
