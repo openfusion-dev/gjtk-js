@@ -108,7 +108,7 @@ var GeoJSON = module.exports = {
     },
     
     
-    isMultiPolygonCoordinates: function ( x ) {
+    isMultiPolygonPosition: function ( x ) {
         // Validate the coordinates of a GeoJSON MultiPolygon.
         return (
             Array.isArray(x) &&
@@ -182,7 +182,7 @@ var GeoJSON = module.exports = {
         return (
             x != null &&
             x.type === 'MultiPolygon' &&
-            GeoJSON.isMultiPolygonCoordinates(x.coordinates) &&
+            GeoJSON.isMultiPolygonPosition(x.coordinates) &&
             GeoJSON.validCRS(x) &&
             GeoJSON.validBbox(x)
         );
@@ -553,6 +553,12 @@ var GeoJSON = module.exports = {
     isPolygonCoordinates: function ( x ) {
         // DEPRECATED: Use isPolygonPosition.
         return GeoJSON.isPolygonPosition(x);
+    },
+
+
+    isMultiPolygonCoordinates: function ( x ) {
+        // DEPRECATED: Use isMultiPolygonPosition.
+        return GeoJSON.isMultiPolygonPosition(x);
     }
     
     
