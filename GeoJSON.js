@@ -4,6 +4,30 @@ var URI = require('uri-js');
 var GeoJSON = module.exports = {
     
     
+    isGeoJSON: function ( x ) {
+        // Validate a GeoJSON object.
+        return (
+            GeoJSON.isGeometry(x) ||
+            GeoJSON.isFeature(x)  ||
+            GeoJSON.isFeatureCollection(x)
+        );
+    },
+    
+    
+    isGeometry: function ( x ) {
+        // Validate a GeoJSON Geometry.
+        return (
+            GeoJSON.isPoint(x) ||
+            GeoJSON.isMultiPoint(x) ||
+            GeoJSON.isLineString(x) ||
+            GeoJSON.isMultiLineString(x) ||
+            GeoJSON.isPolygon(x) ||
+            GeoJSON.isMultiPolygon(x) ||
+            GeoJSON.isGeometryCollection(x)
+        );
+    },
+    
+    
     isPosition: function ( x ) {
         // Validate a GeoJSON Position.
         return (
@@ -86,78 +110,6 @@ var GeoJSON = module.exports = {
         return (
             Array.isArray(x) &&
             x.every(GeoJSON.isPolygonCoordinates)
-        );
-    },
-    
-    
-    validCRS: function ( x ) {
-        // Validate the CRS property of a GeoJSON object.
-        return (
-            x != null &&
-            (
-                typeof x.crs === 'undefined' ||
-                x.crs === null ||
-                GeoJSON.isCRS(x.crs)
-            )
-        )
-    },
-    
-    
-    validBbox: function ( x ) {
-        // Validate the bbox property of a GeoJSON object.
-        return (
-            x != null &&
-            (
-                typeof x.bbox === 'undefined' ||
-                (
-                    Array.isArray(x.bbox) &&
-                    x.bbox.length%2 === 0 &&
-                    true  // TODO Validate the bbox.
-                )
-            )
-        );
-    },
-    
-    
-    isLink: function ( x ) {
-        // Validate a GeoJSON Link.
-        try {
-            return (
-                x != null &&
-                x.properties != null &&
-                typeof x.properties.href === 'string' &&
-                URI.parse(x.properties.href) &&
-                (
-                    typeof x.properties.type === 'undefined' ||
-                    (
-                        typeof x.properties.type === 'string' &&
-                        x.properties.type.length > 0
-                    )
-                )
-            );
-        }
-        catch (e) {
-            return false;
-        }
-    },
-    
-    
-    isCRS: function ( x ) {
-        // Validate a GeoJSON Coordinate Reference System.
-        return (
-            x != null &&
-            (
-                (
-                    x.type === 'name' &&
-                    x.properties != null &&
-                    typeof x.properties.name === 'string' &&
-                    x.properties.name.length > 0
-                ) ||
-                (
-                    x.type === 'link' &&
-                    GeoJSON.isLink(x.properties)
-                )
-            )
         );
     },
     
@@ -276,27 +228,80 @@ var GeoJSON = module.exports = {
     },
     
     
-    isGeometry: function ( x ) {
-        // Validate a GeoJSON Geometry.
+    isCRS: function ( x ) {
+        // Validate a GeoJSON Coordinate Reference System.
         return (
-            GeoJSON.isPoint(x) ||
-            GeoJSON.isMultiPoint(x) ||
-            GeoJSON.isLineString(x) ||
-            GeoJSON.isMultiLineString(x) ||
-            GeoJSON.isPolygon(x) ||
-            GeoJSON.isMultiPolygon(x) ||
-            GeoJSON.isGeometryCollection(x)
+            x != null &&
+            (
+                (
+                    x.type === 'name' &&
+                    x.properties != null &&
+                    typeof x.properties.name === 'string' &&
+                    x.properties.name.length > 0
+                ) ||
+                (
+                    x.type === 'link' &&
+                    GeoJSON.isLink(x.properties)
+                )
+            )
         );
     },
     
     
-    isGeoJSON: function ( x ) {
-        // Validate a GeoJSON object.
+    validCRS: function ( x ) {
+        // Validate the CRS property of a GeoJSON object.
         return (
-            GeoJSON.isGeometry(x) ||
-            GeoJSON.isFeature(x)  ||
-            GeoJSON.isFeatureCollection(x)
+            x != null &&
+            (
+                typeof x.crs === 'undefined' ||
+                x.crs === null ||
+                GeoJSON.isCRS(x.crs)
+            )
+        )
+    },
+
+
+    isBbox: function ( x ) {
+        throw 'Not Implemented'
+    },
+    
+    
+    validBbox: function ( x ) {
+        // Validate the bbox property of a GeoJSON object.
+        return (
+            x != null &&
+            (
+                typeof x.bbox === 'undefined' ||
+                (
+                    Array.isArray(x.bbox) &&
+                    x.bbox.length%2 === 0 &&
+                    GeoJSON.isBbox()
+                )
+            )
         );
+    },
+    
+    
+    isLink: function ( x ) {
+        // Validate a GeoJSON Link.
+        try {
+            return (
+                x != null &&
+                x.properties != null &&
+                typeof x.properties.href === 'string' &&
+                URI.parse(x.properties.href) &&
+                (
+                    typeof x.properties.type === 'undefined' ||
+                    (
+                        typeof x.properties.type === 'string' &&
+                        x.properties.type.length > 0
+                    )
+                )
+            );
+        }
+        catch (e) {
+            return false;
+        }
     },
     
     

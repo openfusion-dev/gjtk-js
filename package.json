@@ -1,6 +1,6 @@
 {
   "name": "gjtk",
-  "version": "1.0.0b",
+  "version": "1.1.0b",
   "description": "GeoJSON ToolKit",
   "main": "GeoJSON.js",
   "scripts": {
