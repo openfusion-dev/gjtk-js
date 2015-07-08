@@ -1,6 +1,6 @@
 # GeoJSON ToolKit
 
-gjtk is a library for working with [GeoJSON](http://geojson.org/).
+`gjtk` is a library for working with [GeoJSON](http://geojson.org/).
 
 ## Installation
 `gjtk` is available on [npm](//www.npmjs.com/package/gjtk).
@@ -30,32 +30,32 @@ returns `true` when passed a valid [GeoJSON Position](http://geojson.org/geojson
 
 > A position is represented by an array of numbers. There must be at least two elements, and may be more. The order of elements must follow x, y, z order (easting, northing, altitude for coordinates in a projected coordinate reference system, or longitude, latitude, altitude for coordinates in a geographic coordinate reference system). Any number of additional elements are allowed -- interpretation and meaning of additional elements is beyond the scope of this specification.
 
-### isPointCoordinates
-returns `true` when passed valid [GeoJSON Point](http://geojson.org/geojson-spec.html#point) coordinates, otherwise `false`
+### isPointPosition
+returns `true` when passed valid [GeoJSON Point](http://geojson.org/geojson-spec.html#point) position, otherwise `false`
 
 #### example
 ``` json
 [100.0, 0.0]
 ```
 
-### isMultiPointCoordinates
-returns `true` when passed valid [GeoJSON MultiPoint](http://geojson.org/geojson-spec.html#multipoint) coordinates, otherwise `false`
+### isMultiPointPosition
+returns `true` when passed valid [GeoJSON MultiPoint](http://geojson.org/geojson-spec.html#multipoint) position, otherwise `false`
 
 #### example
 ``` json
 [ [100.0, 0.0], [101.0, 1.0], [102.0, 2.0] ]
 ```
 
-### isLineStringCoordinates
-returns `true` when passed valid [GeoJSON LineString](http://geojson.org/geojson-spec.html#linestring) coordinates, otherwise `false`
+### isLineStringPosition
+returns `true` when passed valid [GeoJSON LineString](http://geojson.org/geojson-spec.html#linestring) position, otherwise `false`
 
 #### example
 ``` json
 [ [100.0, 0.0], [101.0, 1.0] ]
 ```
 
-### isLinearRingCoordinates
-returns `true` when passed valid [GeoJSON LinearRing](http://geojson.org/geojson-spec.html#linestring) coordinates, otherwise `false`
+### isLinearRingPosition
+returns `true` when passed valid [GeoJSON LinearRing](http://geojson.org/geojson-spec.html#linestring) position, otherwise `false`
 
 > A LinearRing is closed LineString with 4 or more positions. The first and last positions are equivalent (they represent equivalent points). Though a LinearRing is not explicitly represented as a GeoJSON geometry type, it is referred to in the Polygon geometry type definition.
 
@@ -64,8 +64,8 @@ returns `true` when passed valid [GeoJSON LinearRing](http://geojson.org/geojson
 [ [100.0, 0.0], [101.0, 0.0], [101.0, 1.0], [100.0, 1.0], [100.0, 0.0] ]
 ```
 
-### isMultiLineStringCoordinates
-returns `true` when passed valid [GeoJSON MultiLineString](http://geojson.org/geojson-spec.html#multilinestring) coordinates, otherwise `false`
+### isMultiLineStringPosition
+returns `true` when passed valid [GeoJSON MultiLineString](http://geojson.org/geojson-spec.html#multilinestring) position, otherwise `false`
 
 #### example
 ``` json
@@ -75,8 +75,8 @@ returns `true` when passed valid [GeoJSON MultiLineString](http://geojson.org/ge
 ]
 ```
 
-### isPolygonCoordinates
-returns `true` when passed valid [GeoJSON Polygon](http://geojson.org/geojson-spec.html#polygon) coordinates, otherwise `false`
+### isPolygonPosition
+returns `true` when passed valid [GeoJSON Polygon](http://geojson.org/geojson-spec.html#polygon) position, otherwise `false`
 
 #### example
 * 0 holes
@@ -94,8 +94,8 @@ returns `true` when passed valid [GeoJSON Polygon](http://geojson.org/geojson-sp
 ```
 * etc.
 
-### isMultiPolygonCoordinates
-returns `true` when passed valid [GeoJSON MultiPolygon](http://geojson.org/geojson-spec.html#multipolygon) coordinates, otherwise `false`
+### isMultiPolygonPosition
+returns `true` when passed valid [GeoJSON MultiPolygon](http://geojson.org/geojson-spec.html#multipolygon) position, otherwise `false`
 
 #### example
 ``` json
@@ -367,3 +367,26 @@ returns `true` when passed an object that validly specifies a [GeoJSON Bounding 
 ### featuresOf
 
 ### geometriesOf
+
+## Deprecated Methods
+
+### isPointCoordinates
+Use isPointPosition.
+
+### isMultiPointCoordinates
+Use isMultiPointPosition.
+
+### isLineStringCoordinates
+Use isLineStringPosition.
+
+### isLinearRingCoordinates
+Use isLinearRingPosition.
+
+### isMultiLineStringCoordinates
+Use isMultiLineStringPosition.
+
+### isPolygonCoordinates
+Use isPolygonPosition.
+
+### isMultiPolygonCoordinates
+Use isMultiPolygonPosition.
