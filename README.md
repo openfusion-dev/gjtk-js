@@ -15,6 +15,8 @@ var GeoJSON = require('gjtk');
 
 ## Validation Methods
 
+All validation methods take a single argument.
+
 ### isGeoJSON
 returns `true` when passed a valid [GeoJSON object](http://geojson.org/geojson-spec.html#geojson-objects), otherwise `false`
 
@@ -350,23 +352,40 @@ returns `true` when passed an object that validly specifies a [GeoJSON Bounding 
 
 ## Utility Methods
 
-### equalPositions
+### Comparison
 
-### containedPolygon
+#### equalPositions(_position1_, _position2_)
+returns `true` when all parameters are identical [GeoJSON Positions](http://geojson.org/geojson-spec.html#positions), otherwise `false`
 
-### Point
+#### containedPolygon(_innerLinearRing_, _outerLinearRing_)
+returns `true` when one [GeoJSON LinearRing](http://geojson.org/geojson-spec.html#linestring) contains another, otherwise `false`
 
-### Feature
+### Templates
 
-### FeatureCollection
+#### Point(_x_, _y_, _z_)
+returns a [GeoJSON Point](http://geojson.org/geojson-spec.html#point) object
 
-### GeometryCollection
+#### Feature(_Geometry_, _properties_)
+returns a [GeoJSON Feature](http://geojson.org/geojson-spec.html#feature-objects) object
 
-### positionsOf
+#### FeatureCollection(_Features_)
+returns a [GeoJSON FeatureCollection](http://geojson.org/geojson-spec.html#feature-collection-objects) object
 
-### featuresOf
+#### GeometryCollection(_Geometries_)
+returns a [GeoJSON GeometryCollection](http://geojson.org/geojson-spec.html#geometry-collection) object
 
-### geometriesOf
+### Extraction
+
+These methods all take a single argument: a valid [GeoJSON object](http://geojson.org/geojson-spec.html#geojson-objects).
+
+#### positionsOf
+returns all the Positions in a valid [GeoJSON object](http://geojson.org/geojson-spec.html#geojson-objects)
+
+#### featuresOf
+returns all the Features in a valid [GeoJSON object](http://geojson.org/geojson-spec.html#geojson-objects)
+
+#### geometriesOf
+returns all the Geometries in a valid [GeoJSON object](http://geojson.org/geojson-spec.html#geojson-objects)
 
 ## Deprecated Methods
 
