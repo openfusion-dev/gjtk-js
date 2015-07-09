@@ -45,13 +45,13 @@ var GeoJSON = module.exports = {
     },
 
 
-    isPointPosition: function ( x ) {
+    isPointCoordinates: function ( x ) {
         // Validate the position of a GeoJSON Point.
         return GeoJSON.isPosition(x);
     },
     
     
-    isMultiPointPosition: function ( x ) {
+    isMultiPointCoordinates: function ( x ) {
         // Validate the position of a GeoJSON MultiPoint.
         return (
             Array.isArray(x) &&
@@ -60,41 +60,41 @@ var GeoJSON = module.exports = {
     },
     
     
-    isLineStringPosition: function ( x ) {
+    isLineStringCoordinates: function ( x ) {
         // Validate the position of a GeoJSON LineString.
         return (
             Array.isArray(x) &&
             x.length > 1 &&
-            GeoJSON.isMultiPointPosition(x)
+            GeoJSON.isMultiPointCoordinates(x)
         );
     },
     
     
-    isLinearRingPosition: function ( x ) {
+    isLinearRingCoordinates: function ( x ) {
         // Validate the position of a GeoJSON LinearRing.
         return (
             Array.isArray(x) &&
             x.length > 3 &&
-            GeoJSON.isLineStringPosition(x) &&
+            GeoJSON.isLineStringCoordinates(x) &&
             GeoJSON.equalPositions(x[0],x[x.length-1])
         );
     },
     
     
-    isMultiLineStringPosition: function ( x ) {
+    isMultiLineStringCoordinates: function ( x ) {
         // Validate the position of a GeoJSON MultiLineString.
         return (
             Array.isArray(x) &&
-            x.every(GeoJSON.isLineStringPosition)
+            x.every(GeoJSON.isLineStringCoordinates)
         );
     },
     
     
-    isPolygonPosition: function ( x ) {
+    isPolygonCoordinates: function ( x ) {
         // Validate the position of a GeoJSON Polygon.
         return (
             Array.isArray(x) &&
-            x.every(GeoJSON.isLinearRingPosition) &&
+            x.every(GeoJSON.isLinearRingCoordinates) &&
             x.every(
                 function ( LinearRingPosition , i , PolygonPosition ) {
                     if (i == 0) return true;
@@ -108,11 +108,11 @@ var GeoJSON = module.exports = {
     },
     
     
-    isMultiPolygonPosition: function ( x ) {
+    isMultiPolygonCoordinates: function ( x ) {
         // Validate the position of a GeoJSON MultiPolygon.
         return (
             Array.isArray(x) &&
-            x.every(GeoJSON.isPolygonPosition)
+            x.every(GeoJSON.isPolygonCoordinates)
         );
     },
     
@@ -122,7 +122,7 @@ var GeoJSON = module.exports = {
         return (
             x != null &&
             x.type === 'Point' &&
-            GeoJSON.isPointPosition(x.coordinates) &&
+            GeoJSON.isPointCoordinates(x.coordinates) &&
             GeoJSON.validCRS(x) &&
             GeoJSON.validBbox(x)
         );
@@ -134,7 +134,7 @@ var GeoJSON = module.exports = {
         return (
             x != null &&
             x.type === 'MultiPoint' &&
-            GeoJSON.isMultiPointPosition(x.coordinates) &&
+            GeoJSON.isMultiPointCoordinates(x.coordinates) &&
             GeoJSON.validCRS(x) &&
             GeoJSON.validBbox(x)
         );
@@ -146,7 +146,7 @@ var GeoJSON = module.exports = {
         return (
             x != null &&
             x.type === 'LineString' &&
-            GeoJSON.isLineStringPosition(x.coordinates) &&
+            GeoJSON.isLineStringCoordinates(x.coordinates) &&
             GeoJSON.validCRS(x) &&
             GeoJSON.validBbox(x)
         );
@@ -158,7 +158,7 @@ var GeoJSON = module.exports = {
         return (
             x != null &&
             x.type === 'MultiLineString' &&
-            GeoJSON.isMultiLineStringPosition(x.coordinates) &&
+            GeoJSON.isMultiLineStringCoordinates(x.coordinates) &&
             GeoJSON.validCRS(x) &&
             GeoJSON.validBbox(x)
         );
@@ -170,7 +170,7 @@ var GeoJSON = module.exports = {
         return (
             x != null &&
             x.type === 'Polygon' &&
-            GeoJSON.isPolygonPosition(x.coordinates) &&
+            GeoJSON.isPolygonCoordinates(x.coordinates) &&
             GeoJSON.validCRS(x) &&
             GeoJSON.validBbox(x)
         );
@@ -182,7 +182,7 @@ var GeoJSON = module.exports = {
         return (
             x != null &&
             x.type === 'MultiPolygon' &&
-            GeoJSON.isMultiPolygonPosition(x.coordinates) &&
+            GeoJSON.isMultiPolygonCoordinates(x.coordinates) &&
             GeoJSON.validCRS(x) &&
             GeoJSON.validBbox(x)
         );
@@ -333,6 +333,9 @@ var GeoJSON = module.exports = {
             }
         );
     },
+
+
+/////////////////////////////////////////////////////////////////////// TEMPLATE
     
     
     Point: function ( latitude , longitude , altitude ) {
@@ -399,6 +402,9 @@ var GeoJSON = module.exports = {
         );
         return GeometryCollection;
     },
+
+
+///////////////////////////////////////////////////////////////////// EXTRACTION
     
     
     positionsOf: function ( geojson ) {
@@ -514,51 +520,6 @@ var GeoJSON = module.exports = {
                 break;
         }
         return geometries;
-    },
-    
-    
-///////////////////////////////////////////////////////////////////// DEPRECATED
-    
-    
-    isPointCoordinates: function ( x ) {
-        // DEPRECATED: Use isPointPosition.
-        return GeoJSON.isPointPosition(x);
-    },
-    
-    
-    isMultiPointCoordinates: function ( x ) {
-        // DEPRECATED: Use isMultiPointPosition.
-        return GeoJSON.isMultiPointPosition(x);
-    },
-    
-    
-    isLineStringCoordinates: function ( x ) {
-        // DEPRECATED: Use isLineStringPosition.
-        return GeoJSON.isLineStringPosition(x);
-    },
-    
-    
-    isLinearRingCoordinates: function ( x ) {
-        // DEPRECATED: Use isLinearRingPosition.
-        return GeoJSON.isLinearRingPosition(x);
-    },
-
-
-    isMultiLineStringCoordinates: function ( x ) {
-        // DEPRECATED: Use isMultiLineStringPosition.
-        return GeoJSON.isMultiLineStringPosition(x);
-    },
-
-
-    isPolygonCoordinates: function ( x ) {
-        // DEPRECATED: Use isPolygonPosition.
-        return GeoJSON.isPolygonPosition(x);
-    },
-
-
-    isMultiPolygonCoordinates: function ( x ) {
-        // DEPRECATED: Use isMultiPolygonPosition.
-        return GeoJSON.isMultiPolygonPosition(x);
     }
     
     
