@@ -46,13 +46,13 @@ var GeoJSON = module.exports = {
 
 
     isPointCoordinates: function ( x ) {
-        // Validate the position of a GeoJSON Point.
+        // Validate the coordinates of a GeoJSON Point.
         return GeoJSON.isPosition(x);
     },
     
     
     isMultiPointCoordinates: function ( x ) {
-        // Validate the position of a GeoJSON MultiPoint.
+        // Validate the coordinates of a GeoJSON MultiPoint.
         return (
             Array.isArray(x) &&
             x.every(GeoJSON.isPosition)
@@ -61,7 +61,7 @@ var GeoJSON = module.exports = {
     
     
     isLineStringCoordinates: function ( x ) {
-        // Validate the position of a GeoJSON LineString.
+        // Validate the coordinates of a GeoJSON LineString.
         return (
             Array.isArray(x) &&
             x.length > 1 &&
@@ -71,7 +71,7 @@ var GeoJSON = module.exports = {
     
     
     isLinearRingCoordinates: function ( x ) {
-        // Validate the position of a GeoJSON LinearRing.
+        // Validate the coordinates of a GeoJSON LinearRing.
         return (
             Array.isArray(x) &&
             x.length > 3 &&
@@ -82,7 +82,7 @@ var GeoJSON = module.exports = {
     
     
     isMultiLineStringCoordinates: function ( x ) {
-        // Validate the position of a GeoJSON MultiLineString.
+        // Validate the coordinates of a GeoJSON MultiLineString.
         return (
             Array.isArray(x) &&
             x.every(GeoJSON.isLineStringCoordinates)
@@ -91,7 +91,7 @@ var GeoJSON = module.exports = {
     
     
     isPolygonCoordinates: function ( x ) {
-        // Validate the position of a GeoJSON Polygon.
+        // Validate the coordinates of a GeoJSON Polygon.
         return (
             Array.isArray(x) &&
             x.every(GeoJSON.isLinearRingCoordinates) &&
@@ -109,7 +109,7 @@ var GeoJSON = module.exports = {
     
     
     isMultiPolygonCoordinates: function ( x ) {
-        // Validate the position of a GeoJSON MultiPolygon.
+        // Validate the coordinates of a GeoJSON MultiPolygon.
         return (
             Array.isArray(x) &&
             x.every(GeoJSON.isPolygonCoordinates)
