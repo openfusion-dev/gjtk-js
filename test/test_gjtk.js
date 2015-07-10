@@ -273,4 +273,30 @@ describe('GeoJSON', function () {
       assert(GeoJSON.isBbox(valid.Bbox));
     });
   });
+  describe('Point', function () {
+    it('should return a valid Point object when provided a valid Position', function () {
+      assert(GeoJSON.isPoint(GeoJSON.Point(valid.Position())));
+    });
+  });
+  describe('Feature', function () {
+    it('should return a valid Feature object when provided a valid Geometry', function () {
+      assert(GeoJSON.isFeature(GeoJSON.Feature(valid.Geometry(), {})));
+    });
+  });
+  describe('FeatureCollection', function () {
+    it('should return a valid FeatureCollection object when provided nothing', function () {
+      assert(GeoJSON.isFeatureCollection(GeoJSON.FeatureCollection()));
+    });
+    it('should return a valid FeatureCollection object when provided a valid Feature', function () {
+      assert(GeoJSON.isFeatureCollection(GeoJSON.FeatureCollection(valid.Feature)));
+    });
+  });
+  describe('GeometryCollection', function () {
+    it('should return a valid GeometryCollection object when provided nothing', function () {
+      assert(GeoJSON.isGeometryCollection(GeoJSON.GeometryCollection()));
+    });
+    it('should return a valid GeometryCollection object when provided a valid Geometry', function () {
+      assert(GeoJSON.isGeometryCollection(GeoJSON.GeometryCollection(valid.Geometry())));
+    });
+  });
 });
