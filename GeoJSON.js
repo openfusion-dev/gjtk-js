@@ -290,14 +290,13 @@ var GeoJSON = module.exports = {
         try {
             return (
                 x != null &&
-                x.properties != null &&
-                typeof x.properties.href === 'string' &&
-                URI.parse(x.properties.href) &&
+                typeof x.href === 'string' &&
+                URI.parse(x.href) &&
                 (
-                    typeof x.properties.type === 'undefined' ||
+                    typeof x.type === 'undefined' ||
                     (
-                        typeof x.properties.type === 'string' &&
-                        x.properties.type.length > 0
+                        typeof x.type === 'string' &&
+                        x.type.length > 0
                     )
                 )
             );
