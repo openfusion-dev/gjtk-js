@@ -2,6 +2,8 @@
 
 `gjtk` is a library for working with [GeoJSON](http://geojson.org/).
 
+![Build Status](https://codeship.com/projects/f753ffc0-0912-0133-16ea-4a4c0ecd07c2/status?branch=master)
+
 ## Installation
 `gjtk` is available on [npm](//www.npmjs.com/package/gjtk).
 ``` sh
