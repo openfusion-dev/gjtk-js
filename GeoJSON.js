@@ -265,7 +265,7 @@ var GeoJSON = module.exports = {
 
 
     isBbox: function ( x ) {
-        throw 'Not Implemented'
+        throw Error('Not Implemented')
     },
     
     
