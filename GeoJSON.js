@@ -337,17 +337,13 @@ var GeoJSON = module.exports = {
 /////////////////////////////////////////////////////////////////////// TEMPLATE
     
     
-    Point: function ( latitude , longitude , altitude ) {
+    Point: function ( Position ) {
         // Create a valid GeoJSON Point geometry.
-        var Point = null;
-        if (typeof longitude === 'number' && typeof latitude === 'number') {
-            Point = {
-                type: 'Point',
-                coordinates: [longitude,latitude]
-            };
-            if (typeof altitude === 'number') Point.coordinates.push(altitude);
-        }
-        return Point;
+        if (!GeoJSON.isPosition(Position)) throw Error('Invalid Position');
+        return {
+          type: "Point",
+          "coordinates": Position
+        };
     },
     
     
