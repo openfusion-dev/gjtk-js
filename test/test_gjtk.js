@@ -2,16 +2,6 @@ var GeoJSON = require('../GeoJSON');
 var assert = require('assert');
 var valid = {
 
-  Point: {
-      "type": "Point",
-      "coordinates": [100.0, 0.0]
-  },
-
-  MultiPoint: {
-      "type": "MultiPoint",
-      "coordinates": [ [100.0, 0.0], [101.0, 1.0] ]
-  },
-
   LineString: {
     "type": "LineString",
     "coordinates": [ [100.0, 0.0], [101.0, 1.0] ]
@@ -200,13 +190,19 @@ valid.MultiPolygonCoordinates = function () {
 valid.Point = function () {
   return {
     "type": "Point",
-    "coordinates": valid.Position()
+    "coordinates": valid.PointCoordinates()
+  };
+};
+valid.MultiPoint = function () {
+  return {
+    "type": "MultiPoint",
+    "coordinates": valid.MultiPointCoordinates()
   };
 };
 valid.Geometry = function () {
   var Geometries = [
     valid.Point(),
-    valid.MultiPoint,
+    valid.MultiPoint(),
     valid.LineString,
     valid.MultiLineString,
     valid.Polygon,
@@ -235,7 +231,7 @@ describe('GeoJSON', function () {
       assert(GeoJSON.isGeometry(valid.Point()));
     });
     it('should return true when provided a valid MultiPoint object', function () {
-      assert(GeoJSON.isGeometry(valid.MultiPoint));
+      assert(GeoJSON.isGeometry(valid.MultiPoint()));
     });
     it('should return true when provided a valid LineString object', function () {
       assert(GeoJSON.isGeometry(valid.LineString));
@@ -325,12 +321,12 @@ describe('GeoJSON', function () {
       assert(GeoJSON.isPoint(valid.Point()));
     });
     it('should return false when provided a Point object without a type', function () {
-      var Point = JSON.parse(JSON.stringify(valid.Point()));
+      var Point = valid.Point();
       delete Point.type;
       assert(!GeoJSON.isPoint(Point));
     });
     it('should return false when provided a Point object without coordinates', function () {
-      var Point = JSON.parse(JSON.stringify(valid.Point()));
+      var Point = valid.Point();
       delete Point.coordinates;
       assert(!GeoJSON.isPoint(Point));
     });
@@ -341,15 +337,15 @@ describe('GeoJSON', function () {
 
   describe('isMultiPoint', function () {
     it('should return true when provided a valid MultiPoint object', function () {
-      assert(GeoJSON.isMultiPoint(valid.MultiPoint));
+      assert(GeoJSON.isMultiPoint(valid.MultiPoint()));
     });
     it('should return false when provided a MultiPoint object without a type', function () {
-      var MultiPoint = JSON.parse(JSON.stringify(valid.MultiPoint));
+      var MultiPoint = valid.MultiPoint();
       delete MultiPoint.type;
       assert(!GeoJSON.isMultiPoint(MultiPoint));
     });
     it('should return false when provided a MultiPoint object without coordinates', function () {
-      var MultiPoint = JSON.parse(JSON.stringify(valid.MultiPoint));
+      var MultiPoint = valid.MultiPoint();
       delete MultiPoint.coordinates;
       assert(!GeoJSON.isMultiPoint(MultiPoint));
     });
