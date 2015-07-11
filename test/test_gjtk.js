@@ -2,14 +2,6 @@ var GeoJSON = require('../GeoJSON');
 var assert = require('assert');
 var valid = {
 
-  MultiLineString: {
-    "type": "MultiLineString",
-    "coordinates": [
-      [ [100.0, 0.0], [101.0, 1.0] ],
-      [ [102.0, 2.0], [103.0, 3.0] ]
-    ]
-  },
-
   Polygon: {
     "type": "Polygon",
     "coordinates": [
@@ -200,12 +192,18 @@ valid.LineString = function () {
     "coordinates": valid.LineStringCoordinates()
   };
 };
+valid.MultiLineString = function () {
+  return {
+    "type": "MultiLineString",
+    "coordinates": valid.MultiLineStringCoordinates()
+  };
+};
 valid.Geometry = function () {
   var Geometries = [
     valid.Point(),
     valid.MultiPoint(),
     valid.LineString(),
-    valid.MultiLineString,
+    valid.MultiLineString(),
     valid.Polygon,
     valid.MultiPolygon,
     valid.GeometryCollection
@@ -238,7 +236,7 @@ describe('GeoJSON', function () {
       assert(GeoJSON.isGeometry(valid.LineString()));
     });
     it('should return true when provided a valid MultiLineString object', function () {
-      assert(GeoJSON.isGeometry(valid.MultiLineString));
+      assert(GeoJSON.isGeometry(valid.MultiLineString()));
     });
     it('should return true when provided a valid Polygon object', function () {
       assert(GeoJSON.isGeometry(valid.Polygon));
@@ -376,15 +374,15 @@ describe('GeoJSON', function () {
 
   describe('isMultiLineString', function () {
     it('should return true when provided a valid MultiLineString object', function () {
-      assert(GeoJSON.isMultiLineString(valid.MultiLineString));
+      assert(GeoJSON.isMultiLineString(valid.MultiLineString()));
     });
     it('should return false when provided a MultiLineString object without a type', function () {
-      var MultiLineString = JSON.parse(JSON.stringify(valid.MultiLineString));
+      var MultiLineString = valid.MultiLineString();
       delete MultiLineString.type;
       assert(!GeoJSON.isMultiLineString(MultiLineString));
     });
     it('should return false when provided a MultiLineString object without coordinates', function () {
-      var MultiLineString = JSON.parse(JSON.stringify(valid.MultiLineString));
+      var MultiLineString = valid.MultiLineString();
       delete MultiLineString.coordinates;
       assert(!GeoJSON.isMultiLineString(MultiLineString));
     });
