@@ -10,26 +10,6 @@ var valid = {
     ]
   },
 
-  CRSNamed: {
-    "type": "name",
-    "properties": {
-      "name": "urn:ogc:def:crs:OGC:1.3:CRS84"
-    }
-  },
-
-  CRSLinked: {
-    "type": "link",
-    "properties": {
-      "href": "http://example.com/crs/42",
-      "type": "proj4"
-    }
-  },
-
-  Link: {
-    "href": "data.crs",
-    "type": "ogcwkt"
-  },
-
   Bbox: [-180.0, -90.0, 180.0, 90.0],
 
 };
@@ -162,6 +142,27 @@ valid.FeatureCollection = function () {
   return {
     "type": "FeatureCollection",
     "features": features
+  };
+};
+valid.CRS = function () {
+  var crs = {
+    "type": "name",
+    "properties": {
+      "name": "urn:ogc:def:crs:OGC:1.3:CRS84"
+    }
+  };
+  if (Math.random() < 0.5) {
+    crs = {
+      "type": "link",
+      "properties": valid.Link()
+    };
+  };
+  return crs;
+};
+valid.Link = function () {
+  return {
+    "href": "data.crs",
+    "type": "ogcwkt"
   };
 };
 
@@ -454,31 +455,18 @@ describe('GeoJSON', function () {
   });
 
   describe('isCRS', function () {
-    it('should return true when provided a valid Named CRS object', function () {
-      assert(GeoJSON.isCRS(valid.CRSNamed));
+    it('should return true when provided a valid CRS object', function () {
+      assert(GeoJSON.isCRS(valid.CRS()));
     });
-    it('should return false when provided a Named CRS object without a type', function () {
-      var CRSNamed = JSON.parse(JSON.stringify(valid.CRSNamed));
-      delete CRSNamed.type;
-      assert(!GeoJSON.isCRS(CRSNamed));
+    it('should return false when provided a CRS object without a type', function () {
+      var crs = valid.CRS();
+      delete crs.type;
+      assert(!GeoJSON.isCRS(crs));
     });
-    it('should return false when provided a Named CRS object without properties', function () {
-      var CRSNamed = JSON.parse(JSON.stringify(valid.CRSNamed));
-      delete CRSNamed.properties;
-      assert(!GeoJSON.isCRS(CRSNamed));
-    });
-    it('should return true when provided a valid Linked CRS object', function () {
-      assert(GeoJSON.isCRS(valid.CRSLinked));
-    });
-    it('should return false when provided a Linked CRS object without a type', function () {
-      var CRSLinked = JSON.parse(JSON.stringify(valid.CRSLinked));
-      delete CRSLinked.type;
-      assert(!GeoJSON.isCRS(CRSLinked));
-    });
-    it('should return false when provided a Linked CRS object without properties', function () {
-      var CRSLinked = JSON.parse(JSON.stringify(valid.CRSLinked));
-      delete CRSLinked.properties;
-      assert(!GeoJSON.isCRS(CRSLinked));
+    it('should return false when provided a CRS object without properties', function () {
+      var crs = valid.CRS();
+      delete crs.properties;
+      assert(!GeoJSON.isCRS(crs));
     });
     it('should return false when provided nothing', function () {
       assert(!GeoJSON.isCRS());
@@ -487,15 +475,15 @@ describe('GeoJSON', function () {
 
   describe('isLink', function () {
     it('should return true when provided a valid Link object', function () {
-      assert(GeoJSON.isLink(valid.Link));
+      assert(GeoJSON.isLink(valid.Link()));
     });
     it('should return true when provided a Link object without a type', function () {
-      var Link = JSON.parse(JSON.stringify(valid.Link));
+      var Link = valid.Link();
       delete Link.type;
       assert(GeoJSON.isLink(Link));
     });
     it('should return false when provided a Link object without href', function () {
-      var Link = JSON.parse(JSON.stringify(valid.Link));
+      var Link = valid.Link();
       delete Link.href;
       assert(!GeoJSON.isLink(Link));
     });
