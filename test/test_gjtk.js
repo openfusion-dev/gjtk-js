@@ -1,18 +1,6 @@
 var GeoJSON = require('../GeoJSON');
 var assert = require('assert');
-var valid = {
-
-  PolygonWithHole: {
-    "type": "Polygon",
-    "coordinates": [
-      [ [100.0, 0.0], [101.0, 0.0], [101.0, 1.0], [100.0, 1.0], [100.0, 0.0] ],
-      [ [100.2, 0.2], [100.8, 0.2], [100.8, 0.8], [100.2, 0.8], [100.2, 0.2] ]
-    ]
-  },
-
-  Bbox: [-180.0, -90.0, 180.0, 90.0],
-
-};
+var valid = {};
 valid.Position = function () {
   var length = (Math.round(Math.random()*100)%6)+2;
   var Position = [];
@@ -57,7 +45,14 @@ valid.MultiLineStringCoordinates = function () {
   return MultiLineStringCoordinates;
 };
 valid.PolygonCoordinates = function () {
-  return [valid.LinearRingCoordinates()];
+  var PolygonCoordinates = [
+    [ [100.0, 0.0], [101.0, 0.0], [101.0, 1.0], [100.0, 1.0], [100.0, 0.0] ],
+    [ [100.2, 0.2], [100.8, 0.2], [100.8, 0.8], [100.2, 0.8], [100.2, 0.2] ]
+  ];
+  if (Math.random() < 0.5) {
+    PolygonCoordinates = [valid.LinearRingCoordinates()];
+  }
+  return PolygonCoordinates;
 };
 valid.MultiPolygonCoordinates = function () {
   var length = Math.round(Math.random()*100)%6;
@@ -165,6 +160,9 @@ valid.Link = function () {
     "type": "ogcwkt"
   };
 };
+valid.Bbox = function () {
+  return [-180.0, -90.0, 180.0, 90.0];
+};
 
 describe('GeoJSON', function () {
 
@@ -195,9 +193,6 @@ describe('GeoJSON', function () {
     });
     it('should return true when provided a valid Polygon object', function () {
       assert(GeoJSON.isGeometry(valid.Polygon()));
-    });
-    it('should return true when provided a valid Polygon object with hole(s)', function () {
-      assert(GeoJSON.isGeometry(valid.PolygonWithHole));
     });
     it('should return true when provided a valid MultiPolygon object', function () {
       assert(GeoJSON.isGeometry(valid.MultiPolygon()));
@@ -360,19 +355,6 @@ describe('GeoJSON', function () {
       delete Polygon.coordinates;
       assert(!GeoJSON.isPolygon(Polygon));
     });
-    it('should return true when provided a valid Polygon object wih hole(s)', function () {
-      assert(GeoJSON.isPolygon(valid.PolygonWithHole));
-    });
-    it('should return false when provided a Polygon object wih hole(s) without a type', function () {
-      var PolygonWithHole = JSON.parse(JSON.stringify(valid.PolygonWithHole));
-      delete PolygonWithHole.type;
-      assert(!GeoJSON.isPolygon(PolygonWithHole));
-    });
-    it('should return false when provided a Polygon object wih hole(s) without coordinates', function () {
-      var PolygonWithHole = JSON.parse(JSON.stringify(valid.PolygonWithHole));
-      delete PolygonWithHole.coordinates;
-      assert(!GeoJSON.isPolygon(PolygonWithHole));
-    });
     it('should return false when provided nothing', function () {
       assert(!GeoJSON.isPolygon());
     });
@@ -494,7 +476,7 @@ describe('GeoJSON', function () {
 
   describe('isBbox', function () {
     xit('should return true when provided a valid Bbox', function () {
-      assert(GeoJSON.isBbox(valid.Bbox));
+      assert(GeoJSON.isBbox(valid.Bbox()));
     });
   });
 
