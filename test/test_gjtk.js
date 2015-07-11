@@ -152,8 +152,8 @@ valid.Geometry = function () {
     valid.Polygon,
     valid.MultiPolygon,
     valid.GeometryCollection
-  ]
-  return Geometries[Math.floor(Math.random()*Geometries.length)]
+  ];
+  return Geometries[Math.floor(Math.random()*Geometries.length)];
 };
 valid.Position = function () {
   var length = (Math.round(Math.random()*100)%6)+2;
@@ -161,18 +161,23 @@ valid.Position = function () {
   for (var i=0; i < length ;++i) {
       Position.push((Math.random()-0.5)*100);
   };
-  return Position
+  return Position;
 };
-valid.LinearRing = function () {
+valid.LineStringCoordinates = function () {
   var length = (Math.round(Math.random()*100)%6)+2;
-  var LinearRing = [];
-  var origin = valid.Position();
-  LinearRing.push(origin);
-  for (var i=2; i < length ;++i) {
-      LinearRing.push(valid.Position());
+  var LineStringCoordinates = [];
+  for (var i=0; i < length ;++i) {
+      LineStringCoordinates.push(valid.Position());
   };
-  LinearRing.push(origin);
-  return LinearRing;
+  return LineStringCoordinates;
+};
+valid.LinearRingCoordinates = function () {
+  var LinearRingCoordinates = [];
+  var origin = valid.Position();
+  LinearRingCoordinates.push(origin);
+  LinearRingCoordinates = LinearRingCoordinates.concat(valid.LineStringCoordinates());
+  LinearRingCoordinates.push(origin);
+  return LinearRingCoordinates;
 };
 
 describe('GeoJSON', function () {
@@ -257,7 +262,7 @@ describe('GeoJSON', function () {
 
   describe('isLinearRingCoordinates', function () {
     it('should return true when provided a valid GeoJSON LinearRing', function () {
-      assert(GeoJSON.isLinearRingCoordinates(valid.LinearRing()));
+      assert(GeoJSON.isLinearRingCoordinates(valid.LinearRingCoordinates()));
     });
   });
 
