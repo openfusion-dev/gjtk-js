@@ -143,18 +143,6 @@ var valid = {
   Bbox: [-180.0, -90.0, 180.0, 90.0],
 
 };
-valid.Geometry = function () {
-  var Geometries = [
-    valid.Point,
-    valid.MultiPoint,
-    valid.LineString,
-    valid.MultiLineString,
-    valid.Polygon,
-    valid.MultiPolygon,
-    valid.GeometryCollection
-  ];
-  return Geometries[Math.floor(Math.random()*Geometries.length)];
-};
 valid.Position = function () {
   var length = (Math.round(Math.random()*100)%6)+2;
   var Position = [];
@@ -208,7 +196,25 @@ valid.MultiPolygonCoordinates = function () {
       MultiPolygonCoordinates.push(valid.PolygonCoordinates());
   };
   return MultiPolygonCoordinates;
-}
+};
+valid.Point = function () {
+  return {
+    "type": "Point",
+    "coordinates": valid.Position()
+  };
+};
+valid.Geometry = function () {
+  var Geometries = [
+    valid.Point(),
+    valid.MultiPoint,
+    valid.LineString,
+    valid.MultiLineString,
+    valid.Polygon,
+    valid.MultiPolygon,
+    valid.GeometryCollection
+  ];
+  return Geometries[Math.floor(Math.random()*Geometries.length)];
+};
 
 describe('GeoJSON', function () {
 
@@ -226,7 +232,7 @@ describe('GeoJSON', function () {
 
   describe('isGeometry', function () {
     it('should return true when provided a valid Point object', function () {
-      assert(GeoJSON.isGeometry(valid.Point));
+      assert(GeoJSON.isGeometry(valid.Point()));
     });
     it('should return true when provided a valid MultiPoint object', function () {
       assert(GeoJSON.isGeometry(valid.MultiPoint));
@@ -274,19 +280,19 @@ describe('GeoJSON', function () {
 
   describe('isPointCoordinates', function () {
     it('should return true when provided valid GeoJSON Point coordinates', function () {
-      assert(GeoJSON.isPointCoordinates(valid.Point.coordinates));
+      assert(GeoJSON.isPointCoordinates(valid.PointCoordinates()));
     });
   });
 
   describe('isMultiPointCoordinates', function () {
     it('should return true when provided valid GeoJSON MultiPoint coordinates', function () {
-      assert(GeoJSON.isMultiPointCoordinates(valid.MultiPoint.coordinates));
+      assert(GeoJSON.isMultiPointCoordinates(valid.MultiPointCoordinates()));
     });
   });
 
   describe('isLineStringCoordinates', function () {
     it('should return true when provided valid GeoJSON LineString coordinates', function () {
-      assert(GeoJSON.isLineStringCoordinates(valid.LineString.coordinates));
+      assert(GeoJSON.isLineStringCoordinates(valid.LineStringCoordinates()));
     });
   });
 
@@ -298,33 +304,33 @@ describe('GeoJSON', function () {
 
   describe('isMultiLineStringCoordinates', function () {
     it('should return true when provided valid GeoJSON MultiLineString coordinates', function () {
-      assert(GeoJSON.isMultiLineStringCoordinates(valid.MultiLineString.coordinates));
+      assert(GeoJSON.isMultiLineStringCoordinates(valid.MultiLineStringCoordinates()));
     });
   });
 
   describe('isPolygonCoordinates', function () {
     it('should return true when provided valid GeoJSON Polygon coordinates', function () {
-      assert(GeoJSON.isPolygonCoordinates(valid.Polygon.coordinates));
+      assert(GeoJSON.isPolygonCoordinates(valid.PolygonCoordinates()));
     });
   });
 
   describe('isMultiPolygonCoordinates', function () {
     it('should return true when provided valid GeoJSON MultiPolygon coordinates', function () {
-      assert(GeoJSON.isMultiPolygonCoordinates(valid.MultiPolygon.coordinates));
+      assert(GeoJSON.isMultiPolygonCoordinates(valid.MultiPolygonCoordinates()));
     });
   });
 
   describe('isPoint', function () {
     it('should return true when provided a valid Point object', function () {
-      assert(GeoJSON.isPoint(valid.Point));
+      assert(GeoJSON.isPoint(valid.Point()));
     });
     it('should return false when provided a Point object without a type', function () {
-      var Point = JSON.parse(JSON.stringify(valid.Point));
+      var Point = JSON.parse(JSON.stringify(valid.Point()));
       delete Point.type;
       assert(!GeoJSON.isPoint(Point));
     });
     it('should return false when provided a Point object without coordinates', function () {
-      var Point = JSON.parse(JSON.stringify(valid.Point));
+      var Point = JSON.parse(JSON.stringify(valid.Point()));
       delete Point.coordinates;
       assert(!GeoJSON.isPoint(Point));
     });
