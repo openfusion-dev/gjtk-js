@@ -163,6 +163,9 @@ valid.Position = function () {
   };
   return Position;
 };
+valid.PointCoordinates = function () {
+    return valid.Position();
+}
 valid.MultiPointCoordinates = function () {
   var length = Math.round(Math.random()*100)%6;
   var MultiPointCoordinates = [];
