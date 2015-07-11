@@ -2,13 +2,6 @@ var GeoJSON = require('../GeoJSON');
 var assert = require('assert');
 var valid = {
 
-  Polygon: {
-    "type": "Polygon",
-    "coordinates": [
-      [ [100.0, 0.0], [101.0, 0.0], [101.0, 1.0], [100.0, 1.0], [100.0, 0.0] ]
-    ]
-  },
-
   PolygonWithHole: {
     "type": "Polygon",
     "coordinates": [
@@ -198,13 +191,19 @@ valid.MultiLineString = function () {
     "coordinates": valid.MultiLineStringCoordinates()
   };
 };
+valid.Polygon = function () {
+  return {
+    "type": "Polygon",
+    "coordinates": valid.PolygonCoordinates()
+  };
+};
 valid.Geometry = function () {
   var Geometries = [
     valid.Point(),
     valid.MultiPoint(),
     valid.LineString(),
     valid.MultiLineString(),
-    valid.Polygon,
+    valid.Polygon(),
     valid.MultiPolygon,
     valid.GeometryCollection
   ];
@@ -239,7 +238,7 @@ describe('GeoJSON', function () {
       assert(GeoJSON.isGeometry(valid.MultiLineString()));
     });
     it('should return true when provided a valid Polygon object', function () {
-      assert(GeoJSON.isGeometry(valid.Polygon));
+      assert(GeoJSON.isGeometry(valid.Polygon()));
     });
     it('should return true when provided a valid Polygon object with hole(s)', function () {
       assert(GeoJSON.isGeometry(valid.PolygonWithHole));
@@ -393,15 +392,15 @@ describe('GeoJSON', function () {
 
   describe('isPolygon', function () {
     it('should return true when provided a valid Polygon object', function () {
-      assert(GeoJSON.isPolygon(valid.Polygon));
+      assert(GeoJSON.isPolygon(valid.Polygon()));
     });
     it('should return false when provided a Polygon object without a type', function () {
-      var Polygon = JSON.parse(JSON.stringify(valid.Polygon));
+      var Polygon = valid.Polygon();
       delete Polygon.type;
       assert(!GeoJSON.isPolygon(Polygon));
     });
     it('should return false when provided a Polygon object without coordinates', function () {
-      var Polygon = JSON.parse(JSON.stringify(valid.Polygon));
+      var Polygon = valid.Polygon();
       delete Polygon.coordinates;
       assert(!GeoJSON.isPolygon(Polygon));
     });
