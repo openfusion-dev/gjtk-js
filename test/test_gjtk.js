@@ -10,19 +10,6 @@ var valid = {
     ]
   },
 
-  MultiPolygon: {
-    "type": "MultiPolygon",
-    "coordinates": [
-      [
-        [ [102.0, 2.0], [103.0, 2.0], [103.0, 3.0], [102.0, 3.0], [102.0, 2.0] ]
-      ],
-      [
-        [ [100.0, 0.0], [101.0, 0.0], [101.0, 1.0], [100.0, 1.0], [100.0, 0.0] ],
-        [ [100.2, 0.2], [100.8, 0.2], [100.8, 0.8], [100.2, 0.8], [100.2, 0.2] ]
-      ]
-    ]
-  },
-
   GeometryCollection: {
     "type": "GeometryCollection",
     "geometries": [
@@ -197,6 +184,12 @@ valid.Polygon = function () {
     "coordinates": valid.PolygonCoordinates()
   };
 };
+valid.MultiPolygon = function () {
+  return {
+    "type": "MultiPolygon",
+    "coordinates": valid.MultiPolygonCoordinates()
+  };
+};
 valid.Geometry = function () {
   var Geometries = [
     valid.Point(),
@@ -204,7 +197,7 @@ valid.Geometry = function () {
     valid.LineString(),
     valid.MultiLineString(),
     valid.Polygon(),
-    valid.MultiPolygon,
+    valid.MultiPolygon(),
     valid.GeometryCollection
   ];
   return Geometries[Math.floor(Math.random()*Geometries.length)];
@@ -244,7 +237,7 @@ describe('GeoJSON', function () {
       assert(GeoJSON.isGeometry(valid.PolygonWithHole));
     });
     it('should return true when provided a valid MultiPolygon object', function () {
-      assert(GeoJSON.isGeometry(valid.MultiPolygon));
+      assert(GeoJSON.isGeometry(valid.MultiPolygon()));
     });
     it('should return true when provided a valid GeometryCollection object', function () {
       assert(GeoJSON.isGeometry(valid.GeometryCollection));
@@ -424,15 +417,15 @@ describe('GeoJSON', function () {
 
   describe('isMultiPolygon', function () {
     it('should return true when provided a valid MultiPolygon object', function () {
-      assert(GeoJSON.isMultiPolygon(valid.MultiPolygon));
+      assert(GeoJSON.isMultiPolygon(valid.MultiPolygon()));
     });
     it('should return false when provided a MultiPolygon object without a type', function () {
-      var MultiPolygon = JSON.parse(JSON.stringify(valid.MultiPolygon));
+      var MultiPolygon = valid.MultiPolygon();
       delete MultiPolygon.type;
       assert(!GeoJSON.isMultiPolygon(MultiPolygon));
     });
     it('should return false when provided a MultiPolygon object without coordinates', function () {
-      var MultiPolygon = JSON.parse(JSON.stringify(valid.MultiPolygon));
+      var MultiPolygon = valid.MultiPolygon();
       delete MultiPolygon.coordinates;
       assert(!GeoJSON.isMultiPolygon(MultiPolygon));
     });
