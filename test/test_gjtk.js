@@ -17,6 +17,8 @@ var valid = {
     "coordinates": [ [100.0, 0.0], [101.0, 1.0] ]
   },
 
+  LinearRing: [ [100.0, 0.0], [101.0, 0.0], [101.0, 1.0], [100.0, 1.0], [100.0, 0.0] ],
+
   MultiLineString: {
     "type": "MultiLineString",
     "coordinates": [
@@ -223,6 +225,48 @@ describe('GeoJSON', function () {
     });
     it('should return false when provided nothing', function () {
       assert(!GeoJSON.isPosition());
+    });
+  });
+
+  describe('isPointCoordinates', function () {
+    it('should return true when provided valid GeoJSON Point coordinates', function () {
+      assert(GeoJSON.isPointCoordinates(valid.Point.coordinates));
+    });
+  });
+
+  describe('isMultiPointCoordinates', function () {
+    it('should return true when provided valid GeoJSON MultiPoint coordinates', function () {
+      assert(GeoJSON.isMultiPointCoordinates(valid.MultiPoint.coordinates));
+    });
+  });
+
+  describe('isLineStringCoordinates', function () {
+    it('should return true when provided valid GeoJSON LineString coordinates', function () {
+      assert(GeoJSON.isLineStringCoordinates(valid.LineString.coordinates));
+    });
+  });
+
+  describe('isLinearRingCoordinates', function () {
+    it('should return true when provided a valid GeoJSON LinearRing', function () {
+      assert(GeoJSON.isLinearRingCoordinates(valid.LinearRing));
+    });
+  });
+
+  describe('isMultiLineStringCoordinates', function () {
+    it('should return true when provided valid GeoJSON MultiLineString coordinates', function () {
+      assert(GeoJSON.isMultiLineStringCoordinates(valid.MultiLineString.coordinates));
+    });
+  });
+
+  describe('isPolygonCoordinates', function () {
+    it('should return true when provided valid GeoJSON Polygon coordinates', function () {
+      assert(GeoJSON.isPolygonCoordinates(valid.Polygon.coordinates));
+    });
+  });
+
+  describe('isMultiPolygonCoordinates', function () {
+    it('should return true when provided valid GeoJSON MultiPolygon coordinates', function () {
+      assert(GeoJSON.isMultiPolygonCoordinates(valid.MultiPolygon.coordinates));
     });
   });
 
