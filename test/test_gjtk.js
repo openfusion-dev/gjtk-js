@@ -1,167 +1,190 @@
 var GeoJSON = require('../GeoJSON');
 var assert = require('assert');
-var valid = {};
-valid.Position = function () {
-  var length = (Math.round(Math.random()*100)%6)+2;
-  var Position = [];
-  for (var i=0; i < length ;++i) {
-      Position.push((Math.random()-0.5)*100);
-  };
-  return Position;
-};
-valid.PointCoordinates = function () {
-    return valid.Position();
-}
-valid.MultiPointCoordinates = function () {
-  var length = Math.round(Math.random()*100)%6;
-  var MultiPointCoordinates = [];
-  for (var i=0; i < length ;++i) {
-      MultiPointCoordinates.push(valid.Position());
-  };
-  return MultiPointCoordinates;
-};
-valid.LineStringCoordinates = function () {
-  var length = (Math.round(Math.random()*100)%6)+2;
-  var LineStringCoordinates = [];
-  for (var i=0; i < length ;++i) {
-      LineStringCoordinates.push(valid.Position());
-  };
-  return LineStringCoordinates;
-};
-valid.LinearRingCoordinates = function () {
-  var LinearRingCoordinates = [];
-  var origin = valid.Position();
-  LinearRingCoordinates.push(origin);
-  LinearRingCoordinates = LinearRingCoordinates.concat(valid.LineStringCoordinates());
-  LinearRingCoordinates.push(origin);
-  return LinearRingCoordinates;
-};
-valid.MultiLineStringCoordinates = function () {
-  var length = Math.round(Math.random()*100)%6;
-  var MultiLineStringCoordinates = [];
-  for (var i=0; i < length ;++i) {
-      MultiLineStringCoordinates.push(valid.LineStringCoordinates());
-  };
-  return MultiLineStringCoordinates;
-};
-valid.PolygonCoordinates = function () {
-  var PolygonCoordinates = [
-    [ [100.0, 0.0], [101.0, 0.0], [101.0, 1.0], [100.0, 1.0], [100.0, 0.0] ],
-    [ [100.2, 0.2], [100.8, 0.2], [100.8, 0.8], [100.2, 0.8], [100.2, 0.2] ]
-  ];
-  if (Math.random() < 0.5) {
-    PolygonCoordinates = [valid.LinearRingCoordinates()];
-  }
-  return PolygonCoordinates;
-};
-valid.MultiPolygonCoordinates = function () {
-  var length = Math.round(Math.random()*100)%6;
-  var MultiPolygonCoordinates = [];
-  for (var i=0; i < length ;++i) {
-      MultiPolygonCoordinates.push(valid.PolygonCoordinates());
-  };
-  return MultiPolygonCoordinates;
-};
-valid.Geometry = function () {
-  var Geometries = [
-    valid.Point(),
-    valid.MultiPoint(),
-    valid.LineString(),
-    valid.MultiLineString(),
-    valid.Polygon(),
-    valid.MultiPolygon(),
-    valid.GeometryCollection()
-  ];
-  return Geometries[Math.floor(Math.random()*Geometries.length)];
-};
-valid.Point = function () {
-  return {
-    "type": "Point",
-    "coordinates": valid.PointCoordinates()
-  };
-};
-valid.MultiPoint = function () {
-  return {
-    "type": "MultiPoint",
-    "coordinates": valid.MultiPointCoordinates()
-  };
-};
-valid.LineString = function () {
-  return {
-    "type": "LineString",
-    "coordinates": valid.LineStringCoordinates()
-  };
-};
-valid.MultiLineString = function () {
-  return {
-    "type": "MultiLineString",
-    "coordinates": valid.MultiLineStringCoordinates()
-  };
-};
-valid.Polygon = function () {
-  return {
-    "type": "Polygon",
-    "coordinates": valid.PolygonCoordinates()
-  };
-};
-valid.MultiPolygon = function () {
-  return {
-    "type": "MultiPolygon",
-    "coordinates": valid.MultiPolygonCoordinates()
-  };
-};
-valid.GeometryCollection = function () {
-  var length = Math.round(Math.random()*100)%3;
-  var geometries = [];
-  for (var i=0; i < length ;++i) {
-      geometries.push(valid.Geometry());
-  };
-  return {
-    "type": "GeometryCollection",
-    "geometries": geometries
-  };
-};
-valid.Feature = function () {
-  return {
-    "type": "Feature",
-    "geometry": valid.Geometry(),
-    "properties": null
-  }
-};
-valid.FeatureCollection = function () {
-  var length = Math.round(Math.random()*100)%6;
-  var features = [];
-  for (var i=0; i < length ;++i) {
-      features.push(valid.Feature());
-  };
-  return {
-    "type": "FeatureCollection",
-    "features": features
-  };
-};
-valid.CRS = function () {
-  var crs = {
-    "type": "name",
-    "properties": {
-      "name": "urn:ogc:def:crs:OGC:1.3:CRS84"
-    }
-  };
-  if (Math.random() < 0.5) {
-    crs = {
-      "type": "link",
-      "properties": valid.Link()
+var valid = {
+
+  Position: function () {
+    var length = (Math.round(Math.random()*100)%6)+2;
+    var Position = [];
+    for (var i=0; i < length ;++i) {
+        Position.push((Math.random()-0.5)*100);
     };
-  };
-  return crs;
-};
-valid.Link = function () {
-  return {
-    "href": "data.crs",
-    "type": "ogcwkt"
-  };
-};
-valid.Bbox = function () {
-  return [-180.0, -90.0, 180.0, 90.0];
+    return Position;
+  },
+
+  PointCoordinates: function () {
+      return valid.Position();
+  },
+
+  MultiPointCoordinates: function () {
+    var length = Math.round(Math.random()*100)%6;
+    var MultiPointCoordinates = [];
+    for (var i=0; i < length ;++i) {
+        MultiPointCoordinates.push(valid.Position());
+    };
+    return MultiPointCoordinates;
+  },
+
+  LineStringCoordinates: function () {
+    var length = (Math.round(Math.random()*100)%6)+2;
+    var LineStringCoordinates = [];
+    for (var i=0; i < length ;++i) {
+        LineStringCoordinates.push(valid.Position());
+    };
+    return LineStringCoordinates;
+  },
+
+  LinearRingCoordinates: function () {
+    var LinearRingCoordinates = [];
+    var origin = valid.Position();
+    LinearRingCoordinates.push(origin);
+    LinearRingCoordinates = LinearRingCoordinates.concat(valid.LineStringCoordinates());
+    LinearRingCoordinates.push(origin);
+    return LinearRingCoordinates;
+  },
+
+  MultiLineStringCoordinates: function () {
+    var length = Math.round(Math.random()*100)%6;
+    var MultiLineStringCoordinates = [];
+    for (var i=0; i < length ;++i) {
+        MultiLineStringCoordinates.push(valid.LineStringCoordinates());
+    };
+    return MultiLineStringCoordinates;
+  },
+
+  PolygonCoordinates: function () {
+    var PolygonCoordinates = [
+      [ [100.0, 0.0], [101.0, 0.0], [101.0, 1.0], [100.0, 1.0], [100.0, 0.0] ],
+      [ [100.2, 0.2], [100.8, 0.2], [100.8, 0.8], [100.2, 0.8], [100.2, 0.2] ]
+    ];
+    if (Math.random() < 0.5) {
+      PolygonCoordinates = [valid.LinearRingCoordinates()];
+    }
+    return PolygonCoordinates;
+  },
+
+  MultiPolygonCoordinates: function () {
+    var length = Math.round(Math.random()*100)%6;
+    var MultiPolygonCoordinates = [];
+    for (var i=0; i < length ;++i) {
+        MultiPolygonCoordinates.push(valid.PolygonCoordinates());
+    };
+    return MultiPolygonCoordinates;
+  },
+
+  Geometry: function () {
+    var Geometries = [
+      valid.Point(),
+      valid.MultiPoint(),
+      valid.LineString(),
+      valid.MultiLineString(),
+      valid.Polygon(),
+      valid.MultiPolygon(),
+      valid.GeometryCollection()
+    ];
+    return Geometries[Math.floor(Math.random()*Geometries.length)];
+  },
+
+  Point: function () {
+    return {
+      "type": "Point",
+      "coordinates": valid.PointCoordinates()
+    };
+  },
+
+  MultiPoint: function () {
+    return {
+      "type": "MultiPoint",
+      "coordinates": valid.MultiPointCoordinates()
+    };
+  },
+
+  LineString: function () {
+    return {
+      "type": "LineString",
+      "coordinates": valid.LineStringCoordinates()
+    };
+  },
+
+  MultiLineString: function () {
+    return {
+      "type": "MultiLineString",
+      "coordinates": valid.MultiLineStringCoordinates()
+    };
+  },
+
+  Polygon: function () {
+    return {
+      "type": "Polygon",
+      "coordinates": valid.PolygonCoordinates()
+    };
+  },
+
+  MultiPolygon: function () {
+    return {
+      "type": "MultiPolygon",
+      "coordinates": valid.MultiPolygonCoordinates()
+    };
+  },
+
+  GeometryCollection: function () {
+    var length = Math.round(Math.random()*100)%3;
+    var geometries = [];
+    for (var i=0; i < length ;++i) {
+        geometries.push(valid.Geometry());
+    };
+    return {
+      "type": "GeometryCollection",
+      "geometries": geometries
+    };
+  },
+
+  Feature: function () {
+    return {
+      "type": "Feature",
+      "geometry": valid.Geometry(),
+      "properties": null
+    }
+  },
+
+  FeatureCollection: function () {
+    var length = Math.round(Math.random()*100)%6;
+    var features = [];
+    for (var i=0; i < length ;++i) {
+        features.push(valid.Feature());
+    };
+    return {
+      "type": "FeatureCollection",
+      "features": features
+    };
+  },
+
+  CRS: function () {
+    var crs = {
+      "type": "name",
+      "properties": {
+        "name": "urn:ogc:def:crs:OGC:1.3:CRS84"
+      }
+    };
+    if (Math.random() < 0.5) {
+      crs = {
+        "type": "link",
+        "properties": valid.Link()
+      };
+    };
+    return crs;
+  },
+
+  Link: function () {
+    return {
+      "href": "data.crs",
+      "type": "ogcwkt"
+    };
+  },
+
+  Bbox: function () {
+    return [-180.0, -90.0, 180.0, 90.0];
+  }
+
 };
 
 describe('GeoJSON', function () {
