@@ -10,48 +10,6 @@ var valid = {
     ]
   },
 
-  FeatureCollection: {
-    "type": "FeatureCollection",
-    "features": [
-      {
-        "type": "Feature",
-        "geometry": {
-          "type": "Point",
-          "coordinates": [102.0, 0.5]
-        },
-        "properties": {
-          "prop0": "value0"
-        }
-      },
-      {
-        "type": "Feature",
-        "geometry": {
-          "type": "LineString",
-          "coordinates": [ [102.0, 0.0], [103.0, 1.0], [104.0, 0.0], [105.0, 1.0] ]
-        },
-        "properties": {
-          "prop0": "value0",
-          "prop1": 0.0
-        }
-      },
-      {
-        "type": "Feature",
-        "geometry": {
-          "type": "Polygon",
-          "coordinates": [
-            [ [100.0, 0.0], [101.0, 0.0], [101.0, 1.0], [100.0, 1.0], [100.0, 0.0] ]
-          ]
-        },
-        "properties": {
-          "prop0": "value0",
-          "prop1": {
-            "this": "that"
-          }
-        }
-      }
-    ]
-  },
-
   CRSNamed: {
     "type": "name",
     "properties": {
@@ -195,6 +153,17 @@ valid.Feature = function () {
     "properties": null
   }
 };
+valid.FeatureCollection = function () {
+  var length = Math.round(Math.random()*100)%6;
+  var features = [];
+  for (var i=0; i < length ;++i) {
+      features.push(valid.Feature());
+  };
+  return {
+    "type": "FeatureCollection",
+    "features": features
+  };
+};
 
 describe('GeoJSON', function () {
 
@@ -206,7 +175,7 @@ describe('GeoJSON', function () {
       assert(GeoJSON.isGeoJSON(valid.Feature()));
     });
     it('should return true when provided a valid FeatureCollection object', function () {
-      assert(GeoJSON.isGeoJSON(valid.FeatureCollection));
+      assert(GeoJSON.isGeoJSON(valid.FeatureCollection()));
     });
   });
 
@@ -467,15 +436,15 @@ describe('GeoJSON', function () {
 
   describe('isFeatureCollection', function () {
     it('should return true when provided a valid FeatureCollection object', function () {
-      assert(GeoJSON.isFeatureCollection(valid.FeatureCollection));
+      assert(GeoJSON.isFeatureCollection(valid.FeatureCollection()));
     });
     it('should return false when provided a FeatureCollection object without a type', function () {
-      var FeatureCollection = JSON.parse(JSON.stringify(valid.FeatureCollection));
+      var FeatureCollection = valid.FeatureCollection();
       delete FeatureCollection.type;
       assert(!GeoJSON.isFeatureCollection(FeatureCollection));
     });
     it('should return false when provided a FeatureCollection object without features', function () {
-      var FeatureCollection = JSON.parse(JSON.stringify(valid.FeatureCollection));
+      var FeatureCollection = valid.FeatureCollection();
       delete FeatureCollection.features;
       assert(!GeoJSON.isFeatureCollection(FeatureCollection));
     });
