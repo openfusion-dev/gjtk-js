@@ -17,8 +17,6 @@ var valid = {
     "coordinates": [ [100.0, 0.0], [101.0, 1.0] ]
   },
 
-  LinearRing: [ [100.0, 0.0], [101.0, 0.0], [101.0, 1.0], [100.0, 1.0], [100.0, 0.0] ],
-
   MultiLineString: {
     "type": "MultiLineString",
     "coordinates": [
@@ -165,6 +163,17 @@ valid.Position = function () {
   };
   return Position
 };
+valid.LinearRing = function () {
+  var length = (Math.round(Math.random()*100)%6)+2;
+  var LinearRing = [];
+  var origin = valid.Position();
+  LinearRing.push(origin);
+  for (var i=2; i < length ;++i) {
+      LinearRing.push(valid.Position());
+  };
+  LinearRing.push(origin);
+  return LinearRing;
+};
 
 describe('GeoJSON', function () {
 
@@ -248,7 +257,7 @@ describe('GeoJSON', function () {
 
   describe('isLinearRingCoordinates', function () {
     it('should return true when provided a valid GeoJSON LinearRing', function () {
-      assert(GeoJSON.isLinearRingCoordinates(valid.LinearRing));
+      assert(GeoJSON.isLinearRingCoordinates(valid.LinearRing()));
     });
   });
 
