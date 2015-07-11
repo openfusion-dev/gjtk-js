@@ -201,6 +201,14 @@ valid.MultiLineStringCoordinates = function () {
 valid.PolygonCoordinates = function () {
   return [valid.LinearRingCoordinates()];
 };
+valid.MultiPolygonCoordinates = function () {
+  var length = Math.round(Math.random()*100)%6;
+  var MultiPolygonCoordinates = [];
+  for (var i=0; i < length ;++i) {
+      MultiPolygonCoordinates.push(valid.PolygonCoordinates());
+  };
+  return MultiPolygonCoordinates;
+}
 
 describe('GeoJSON', function () {
 
