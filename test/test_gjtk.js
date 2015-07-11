@@ -198,6 +198,9 @@ valid.MultiLineStringCoordinates = function () {
   };
   return MultiLineStringCoordinates;
 };
+valid.PolygonCoordinates = function () {
+  return [valid.LinearRingCoordinates()];
+};
 
 describe('GeoJSON', function () {
 
