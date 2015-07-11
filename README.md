@@ -366,7 +366,7 @@ returns `true` when one [GeoJSON LinearRing](http://geojson.org/geojson-spec.htm
 
 ### Templates
 
-#### Point(_x_, _y_, _z_)
+#### Point(_Position_)
 returns a [GeoJSON Point](http://geojson.org/geojson-spec.html#point) object
 
 #### Feature(_Geometry_, _properties_)
