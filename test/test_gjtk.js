@@ -190,6 +190,14 @@ valid.LinearRingCoordinates = function () {
   LinearRingCoordinates.push(origin);
   return LinearRingCoordinates;
 };
+valid.MultiLineStringCoordinates = function () {
+  var length = Math.round(Math.random()*100)%6;
+  var MultiLineStringCoordinates = [];
+  for (var i=0; i < length ;++i) {
+      MultiLineStringCoordinates.push(valid.LineStringCoordinates());
+  };
+  return MultiLineStringCoordinates;
+};
 
 describe('GeoJSON', function () {
 
