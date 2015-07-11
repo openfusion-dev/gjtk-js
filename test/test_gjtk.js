@@ -10,20 +10,6 @@ var valid = {
     ]
   },
 
-  GeometryCollection: {
-    "type": "GeometryCollection",
-    "geometries": [
-      {
-        "type": "Point",
-        "coordinates": [100.0, 0.0]
-      },
-      {
-        "type": "LineString",
-        "coordinates": [ [101.0, 0.0], [102.0, 1.0] ]
-      }
-    ]
-  },
-
   Feature: {
     "type": "Feature",
     "geometry": {
@@ -154,6 +140,18 @@ valid.MultiPolygonCoordinates = function () {
   };
   return MultiPolygonCoordinates;
 };
+valid.Geometry = function () {
+  var Geometries = [
+    valid.Point(),
+    valid.MultiPoint(),
+    valid.LineString(),
+    valid.MultiLineString(),
+    valid.Polygon(),
+    valid.MultiPolygon(),
+    valid.GeometryCollection()
+  ];
+  return Geometries[Math.floor(Math.random()*Geometries.length)];
+};
 valid.Point = function () {
   return {
     "type": "Point",
@@ -190,17 +188,16 @@ valid.MultiPolygon = function () {
     "coordinates": valid.MultiPolygonCoordinates()
   };
 };
-valid.Geometry = function () {
-  var Geometries = [
-    valid.Point(),
-    valid.MultiPoint(),
-    valid.LineString(),
-    valid.MultiLineString(),
-    valid.Polygon(),
-    valid.MultiPolygon(),
-    valid.GeometryCollection
-  ];
-  return Geometries[Math.floor(Math.random()*Geometries.length)];
+valid.GeometryCollection = function () {
+  var length = Math.round(Math.random()*100)%3;
+  var geometries = [];
+  for (var i=0; i < length ;++i) {
+      geometries.push(valid.Geometry());
+  };
+  return {
+    "type": "GeometryCollection",
+    "geometries": geometries
+  };
 };
 
 describe('GeoJSON', function () {
@@ -240,7 +237,7 @@ describe('GeoJSON', function () {
       assert(GeoJSON.isGeometry(valid.MultiPolygon()));
     });
     it('should return true when provided a valid GeometryCollection object', function () {
-      assert(GeoJSON.isGeometry(valid.GeometryCollection));
+      assert(GeoJSON.isGeometry(valid.GeometryCollection()));
     });
   });
 
@@ -436,15 +433,15 @@ describe('GeoJSON', function () {
 
   describe('isGeometryCollection', function () {
     it('should return true when provided a valid GeometryCollection object', function () {
-      assert(GeoJSON.isGeometryCollection(valid.GeometryCollection));
+      assert(GeoJSON.isGeometryCollection(valid.GeometryCollection()));
     });
     it('should return false when provided a GeometryCollection object without a type', function () {
-      var GeometryCollection = JSON.parse(JSON.stringify(valid.GeometryCollection));
+      var GeometryCollection = valid.GeometryCollection();
       delete GeometryCollection.type;
       assert(!GeoJSON.isGeometryCollection(GeometryCollection));
     });
     it('should return false when provided a GeometryCollection object without geometries', function () {
-      var GeometryCollection = JSON.parse(JSON.stringify(valid.GeometryCollection));
+      var GeometryCollection = valid.GeometryCollection();
       delete GeometryCollection.geometries;
       assert(!GeoJSON.isGeometryCollection(GeometryCollection));
     });
