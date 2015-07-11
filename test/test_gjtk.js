@@ -163,6 +163,14 @@ valid.Position = function () {
   };
   return Position;
 };
+valid.MultiPointCoordinates = function () {
+  var length = Math.round(Math.random()*100)%6;
+  var MultiPointCoordinates = [];
+  for (var i=0; i < length ;++i) {
+      MultiPointCoordinates.push(valid.Position());
+  };
+  return MultiPointCoordinates;
+};
 valid.LineStringCoordinates = function () {
   var length = (Math.round(Math.random()*100)%6)+2;
   var LineStringCoordinates = [];
