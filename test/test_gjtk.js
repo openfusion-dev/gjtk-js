@@ -2,11 +2,6 @@ var GeoJSON = require('../GeoJSON');
 var assert = require('assert');
 var valid = {
 
-  LineString: {
-    "type": "LineString",
-    "coordinates": [ [100.0, 0.0], [101.0, 1.0] ]
-  },
-
   MultiLineString: {
     "type": "MultiLineString",
     "coordinates": [
@@ -199,11 +194,17 @@ valid.MultiPoint = function () {
     "coordinates": valid.MultiPointCoordinates()
   };
 };
+valid.LineString = function () {
+  return {
+    "type": "LineString",
+    "coordinates": valid.LineStringCoordinates()
+  };
+};
 valid.Geometry = function () {
   var Geometries = [
     valid.Point(),
     valid.MultiPoint(),
-    valid.LineString,
+    valid.LineString(),
     valid.MultiLineString,
     valid.Polygon,
     valid.MultiPolygon,
@@ -234,7 +235,7 @@ describe('GeoJSON', function () {
       assert(GeoJSON.isGeometry(valid.MultiPoint()));
     });
     it('should return true when provided a valid LineString object', function () {
-      assert(GeoJSON.isGeometry(valid.LineString));
+      assert(GeoJSON.isGeometry(valid.LineString()));
     });
     it('should return true when provided a valid MultiLineString object', function () {
       assert(GeoJSON.isGeometry(valid.MultiLineString));
@@ -356,15 +357,15 @@ describe('GeoJSON', function () {
 
   describe('isLineString', function () {
     it('should return true when provided a valid LineString object', function () {
-      assert(GeoJSON.isLineString(valid.LineString));
+      assert(GeoJSON.isLineString(valid.LineString()));
     });
     it('should return false when provided a LineString object without a type', function () {
-      var LineString = JSON.parse(JSON.stringify(valid.LineString));
+      var LineString = valid.LineString();
       delete LineString.type;
       assert(!GeoJSON.isLineString(LineString));
     });
     it('should return false when provided a LineString object without coordinates', function () {
-      var LineString = JSON.parse(JSON.stringify(valid.LineString));
+      var LineString = valid.LineString();
       delete LineString.coordinates;
       assert(!GeoJSON.isLineString(LineString));
     });
