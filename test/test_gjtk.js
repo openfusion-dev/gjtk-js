@@ -10,17 +10,6 @@ var valid = {
     ]
   },
 
-  Feature: {
-    "type": "Feature",
-    "geometry": {
-      "type": "Point",
-      "coordinates": [125.6, 10.1]
-    },
-    "properties": {
-      "name": "Dinagat Islands"
-    }
-  },
-
   FeatureCollection: {
     "type": "FeatureCollection",
     "features": [
@@ -199,6 +188,13 @@ valid.GeometryCollection = function () {
     "geometries": geometries
   };
 };
+valid.Feature = function () {
+  return {
+    "type": "Feature",
+    "geometry": valid.Geometry(),
+    "properties": null
+  }
+};
 
 describe('GeoJSON', function () {
 
@@ -207,7 +203,7 @@ describe('GeoJSON', function () {
       assert(GeoJSON.isGeoJSON(valid.Geometry()));
     });
     it('should return true when provided a valid Feature object', function () {
-      assert(GeoJSON.isGeoJSON(valid.Feature));
+      assert(GeoJSON.isGeoJSON(valid.Feature()));
     });
     it('should return true when provided a valid FeatureCollection object', function () {
       assert(GeoJSON.isGeoJSON(valid.FeatureCollection));
@@ -452,15 +448,15 @@ describe('GeoJSON', function () {
 
   describe('isFeature', function () {
     it('should return true when provided a valid Feature object', function () {
-      assert(GeoJSON.isFeature(valid.Feature));
+      assert(GeoJSON.isFeature(valid.Feature()));
     });
     it('should return false when provided a Feature object without a type', function () {
-      var Feature = JSON.parse(JSON.stringify(valid.Feature));
+      var Feature = valid.Feature();
       delete Feature.type;
       assert(!GeoJSON.isFeature(Feature));
     });
     it('should return false when provided a Feature object without geometry', function () {
-      var Feature = JSON.parse(JSON.stringify(valid.Feature));
+      var Feature = valid.Feature();
       delete Feature.geometry;
       assert(!GeoJSON.isFeature(Feature));
     });
@@ -562,7 +558,7 @@ describe('GeoJSON', function () {
       assert(GeoJSON.isFeatureCollection(GeoJSON.FeatureCollection()));
     });
     it('should return a valid FeatureCollection object when provided a valid Feature', function () {
-      assert(GeoJSON.isFeatureCollection(GeoJSON.FeatureCollection(valid.Feature)));
+      assert(GeoJSON.isFeatureCollection(GeoJSON.FeatureCollection(valid.Feature())));
     });
   });
 
