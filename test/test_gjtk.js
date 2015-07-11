@@ -159,7 +159,7 @@ valid.Position = function () {
   var length = (Math.round(Math.random()*100)%6)+2;
   var Position = [];
   for (var i=0; i < length ;++i) {
-      Position.push(Math.random());
+      Position.push((Math.random()-0.5)*100);
   };
   return Position
 };
