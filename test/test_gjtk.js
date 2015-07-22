@@ -479,6 +479,10 @@ describe('Validation Methods', function () {
     });
   });
 
+  describe('hasCRS', function () {
+    // TODO
+  });
+
   describe('isLink', function () {
     it('should return true when provided a valid Link object', function () {
       assert(gjtk.isLink(valid.Link()));
@@ -504,6 +508,10 @@ describe('Validation Methods', function () {
     });
   });
 
+  describe('hasBbox', function () {
+    // TODO
+  });
+
 });
 
 
@@ -520,6 +528,10 @@ describe('Utility Methods', function () {
       positionB[0] += 1
       assert(!gjtk.equalPositions(positionA, positionB));
     });
+  });
+
+  describe('containedPolygon', function () {
+    // TODO
   });
 
 });
@@ -561,5 +573,17 @@ describe('Template Methods', function () {
 
 
 describe('Extraction Methods', function () {
+
+  describe('positionsOf', function () {
+    // TODO
+  });
+
+  describe('featuresOf', function () {
+    // TODO
+  });
+
+  describe('geometriesOf', function () {
+    // TODO
+  });
 
 });

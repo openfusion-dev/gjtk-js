@@ -264,27 +264,6 @@ var gjtk = module.exports = {
     },
 
 
-    isBbox: function ( x ) {
-        throw Error('Not Implemented')
-    },
-
-
-    hasBbox: function ( x ) {
-        // Validate the bbox property of a GeoJSON object.
-        return (
-            x != null &&
-            (
-                typeof x.bbox === 'undefined' ||
-                (
-                    Array.isArray(x.bbox) &&
-                    x.bbox.length%2 === 0 &&
-                    gjtk.isBbox()
-                )
-            )
-        );
-    },
-
-
     isLink: function ( x ) {
         // Validate a GeoJSON Link.
         try {
@@ -304,6 +283,27 @@ var gjtk = module.exports = {
         catch (e) {
             return false;
         }
+    },
+
+
+    isBbox: function ( x ) {
+        throw Error('Not Implemented')
+    },
+
+
+    hasBbox: function ( x ) {
+        // Validate the bbox property of a GeoJSON object.
+        return (
+            x != null &&
+            (
+                typeof x.bbox === 'undefined' ||
+                (
+                    Array.isArray(x.bbox) &&
+                    x.bbox.length%2 === 0 &&
+                    gjtk.isBbox()
+                )
+            )
+        );
     },
 
 
