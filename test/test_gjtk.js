@@ -1,4 +1,4 @@
-var GeoJSON = require('../GeoJSON');
+var gjtk = require('../gjtk');
 var assert = require('assert');
 var valid = {
 
@@ -191,345 +191,345 @@ describe('GeoJSON', function () {
 
   describe('isGeoJSON', function () {
     it('should return true when provided a valid Geometry object', function () {
-      assert(GeoJSON.isGeoJSON(valid.Geometry()));
+      assert(gjtk.isGeoJSON(valid.Geometry()));
     });
     it('should return true when provided a valid Feature object', function () {
-      assert(GeoJSON.isGeoJSON(valid.Feature()));
+      assert(gjtk.isGeoJSON(valid.Feature()));
     });
     it('should return true when provided a valid FeatureCollection object', function () {
-      assert(GeoJSON.isGeoJSON(valid.FeatureCollection()));
+      assert(gjtk.isGeoJSON(valid.FeatureCollection()));
     });
   });
 
   describe('isGeometry', function () {
     it('should return true when provided a valid Point object', function () {
-      assert(GeoJSON.isGeometry(valid.Point()));
+      assert(gjtk.isGeometry(valid.Point()));
     });
     it('should return true when provided a valid MultiPoint object', function () {
-      assert(GeoJSON.isGeometry(valid.MultiPoint()));
+      assert(gjtk.isGeometry(valid.MultiPoint()));
     });
     it('should return true when provided a valid LineString object', function () {
-      assert(GeoJSON.isGeometry(valid.LineString()));
+      assert(gjtk.isGeometry(valid.LineString()));
     });
     it('should return true when provided a valid MultiLineString object', function () {
-      assert(GeoJSON.isGeometry(valid.MultiLineString()));
+      assert(gjtk.isGeometry(valid.MultiLineString()));
     });
     it('should return true when provided a valid Polygon object', function () {
-      assert(GeoJSON.isGeometry(valid.Polygon()));
+      assert(gjtk.isGeometry(valid.Polygon()));
     });
     it('should return true when provided a valid MultiPolygon object', function () {
-      assert(GeoJSON.isGeometry(valid.MultiPolygon()));
+      assert(gjtk.isGeometry(valid.MultiPolygon()));
     });
     it('should return true when provided a valid GeometryCollection object', function () {
-      assert(GeoJSON.isGeometry(valid.GeometryCollection()));
+      assert(gjtk.isGeometry(valid.GeometryCollection()));
     });
   });
 
   describe('isPosition', function () {
     it('should return true when provided an array of at least 2 numbers', function () {
-      assert(GeoJSON.isPosition(valid.Position()));
+      assert(gjtk.isPosition(valid.Position()));
     });
     it('should return false when provided an array of less than 2 numbers', function () {
-      assert(!GeoJSON.isPosition([1]));
+      assert(!gjtk.isPosition([1]));
     });
     it('should return false when provided an array of less than 2 non-numbers', function () {
-      assert(!GeoJSON.isPosition(['a']));
+      assert(!gjtk.isPosition(['a']));
     });
     it('should return false when provided an array of at least 2 non-numbers', function () {
-      assert(!GeoJSON.isPosition(['foo', 'bar']));
+      assert(!gjtk.isPosition(['foo', 'bar']));
     });
     it('should return false when provided an array of a mix of at least 2 numbers and non-numbers', function () {
-      assert(!GeoJSON.isPosition([1, 'a']));
+      assert(!gjtk.isPosition([1, 'a']));
     });
     it('should return false when provided nothing', function () {
-      assert(!GeoJSON.isPosition());
+      assert(!gjtk.isPosition());
     });
   });
 
   describe('isPointCoordinates', function () {
     it('should return true when provided valid GeoJSON Point coordinates', function () {
-      assert(GeoJSON.isPointCoordinates(valid.PointCoordinates()));
+      assert(gjtk.isPointCoordinates(valid.PointCoordinates()));
     });
   });
 
   describe('isMultiPointCoordinates', function () {
     it('should return true when provided valid GeoJSON MultiPoint coordinates', function () {
-      assert(GeoJSON.isMultiPointCoordinates(valid.MultiPointCoordinates()));
+      assert(gjtk.isMultiPointCoordinates(valid.MultiPointCoordinates()));
     });
   });
 
   describe('isLineStringCoordinates', function () {
     it('should return true when provided valid GeoJSON LineString coordinates', function () {
-      assert(GeoJSON.isLineStringCoordinates(valid.LineStringCoordinates()));
+      assert(gjtk.isLineStringCoordinates(valid.LineStringCoordinates()));
     });
   });
 
   describe('isLinearRingCoordinates', function () {
     it('should return true when provided a valid GeoJSON LinearRing', function () {
-      assert(GeoJSON.isLinearRingCoordinates(valid.LinearRingCoordinates()));
+      assert(gjtk.isLinearRingCoordinates(valid.LinearRingCoordinates()));
     });
   });
 
   describe('isMultiLineStringCoordinates', function () {
     it('should return true when provided valid GeoJSON MultiLineString coordinates', function () {
-      assert(GeoJSON.isMultiLineStringCoordinates(valid.MultiLineStringCoordinates()));
+      assert(gjtk.isMultiLineStringCoordinates(valid.MultiLineStringCoordinates()));
     });
   });
 
   describe('isPolygonCoordinates', function () {
     it('should return true when provided valid GeoJSON Polygon coordinates', function () {
-      assert(GeoJSON.isPolygonCoordinates(valid.PolygonCoordinates()));
+      assert(gjtk.isPolygonCoordinates(valid.PolygonCoordinates()));
     });
   });
 
   describe('isMultiPolygonCoordinates', function () {
     it('should return true when provided valid GeoJSON MultiPolygon coordinates', function () {
-      assert(GeoJSON.isMultiPolygonCoordinates(valid.MultiPolygonCoordinates()));
+      assert(gjtk.isMultiPolygonCoordinates(valid.MultiPolygonCoordinates()));
     });
   });
 
   describe('isPoint', function () {
     it('should return true when provided a valid Point object', function () {
-      assert(GeoJSON.isPoint(valid.Point()));
+      assert(gjtk.isPoint(valid.Point()));
     });
     it('should return false when provided a Point object without a type', function () {
       var Point = valid.Point();
       delete Point.type;
-      assert(!GeoJSON.isPoint(Point));
+      assert(!gjtk.isPoint(Point));
     });
     it('should return false when provided a Point object without coordinates', function () {
       var Point = valid.Point();
       delete Point.coordinates;
-      assert(!GeoJSON.isPoint(Point));
+      assert(!gjtk.isPoint(Point));
     });
     it('should return false when provided nothing', function () {
-      assert(!GeoJSON.isPoint());
+      assert(!gjtk.isPoint());
     });
   });
 
   describe('isMultiPoint', function () {
     it('should return true when provided a valid MultiPoint object', function () {
-      assert(GeoJSON.isMultiPoint(valid.MultiPoint()));
+      assert(gjtk.isMultiPoint(valid.MultiPoint()));
     });
     it('should return false when provided a MultiPoint object without a type', function () {
       var MultiPoint = valid.MultiPoint();
       delete MultiPoint.type;
-      assert(!GeoJSON.isMultiPoint(MultiPoint));
+      assert(!gjtk.isMultiPoint(MultiPoint));
     });
     it('should return false when provided a MultiPoint object without coordinates', function () {
       var MultiPoint = valid.MultiPoint();
       delete MultiPoint.coordinates;
-      assert(!GeoJSON.isMultiPoint(MultiPoint));
+      assert(!gjtk.isMultiPoint(MultiPoint));
     });
     it('should return false when provided nothing', function () {
-      assert(!GeoJSON.isMultiPoint());
+      assert(!gjtk.isMultiPoint());
     });
   });
 
   describe('isLineString', function () {
     it('should return true when provided a valid LineString object', function () {
-      assert(GeoJSON.isLineString(valid.LineString()));
+      assert(gjtk.isLineString(valid.LineString()));
     });
     it('should return false when provided a LineString object without a type', function () {
       var LineString = valid.LineString();
       delete LineString.type;
-      assert(!GeoJSON.isLineString(LineString));
+      assert(!gjtk.isLineString(LineString));
     });
     it('should return false when provided a LineString object without coordinates', function () {
       var LineString = valid.LineString();
       delete LineString.coordinates;
-      assert(!GeoJSON.isLineString(LineString));
+      assert(!gjtk.isLineString(LineString));
     });
     it('should return false when provided nothing', function () {
-      assert(!GeoJSON.isLineString());
+      assert(!gjtk.isLineString());
     });
   });
 
   describe('isMultiLineString', function () {
     it('should return true when provided a valid MultiLineString object', function () {
-      assert(GeoJSON.isMultiLineString(valid.MultiLineString()));
+      assert(gjtk.isMultiLineString(valid.MultiLineString()));
     });
     it('should return false when provided a MultiLineString object without a type', function () {
       var MultiLineString = valid.MultiLineString();
       delete MultiLineString.type;
-      assert(!GeoJSON.isMultiLineString(MultiLineString));
+      assert(!gjtk.isMultiLineString(MultiLineString));
     });
     it('should return false when provided a MultiLineString object without coordinates', function () {
       var MultiLineString = valid.MultiLineString();
       delete MultiLineString.coordinates;
-      assert(!GeoJSON.isMultiLineString(MultiLineString));
+      assert(!gjtk.isMultiLineString(MultiLineString));
     });
     it('should return false when provided nothing', function () {
-      assert(!GeoJSON.isMultiLineString());
+      assert(!gjtk.isMultiLineString());
     });
   });
 
   describe('isPolygon', function () {
     it('should return true when provided a valid Polygon object', function () {
-      assert(GeoJSON.isPolygon(valid.Polygon()));
+      assert(gjtk.isPolygon(valid.Polygon()));
     });
     it('should return false when provided a Polygon object without a type', function () {
       var Polygon = valid.Polygon();
       delete Polygon.type;
-      assert(!GeoJSON.isPolygon(Polygon));
+      assert(!gjtk.isPolygon(Polygon));
     });
     it('should return false when provided a Polygon object without coordinates', function () {
       var Polygon = valid.Polygon();
       delete Polygon.coordinates;
-      assert(!GeoJSON.isPolygon(Polygon));
+      assert(!gjtk.isPolygon(Polygon));
     });
     it('should return false when provided nothing', function () {
-      assert(!GeoJSON.isPolygon());
+      assert(!gjtk.isPolygon());
     });
   });
 
   describe('isMultiPolygon', function () {
     it('should return true when provided a valid MultiPolygon object', function () {
-      assert(GeoJSON.isMultiPolygon(valid.MultiPolygon()));
+      assert(gjtk.isMultiPolygon(valid.MultiPolygon()));
     });
     it('should return false when provided a MultiPolygon object without a type', function () {
       var MultiPolygon = valid.MultiPolygon();
       delete MultiPolygon.type;
-      assert(!GeoJSON.isMultiPolygon(MultiPolygon));
+      assert(!gjtk.isMultiPolygon(MultiPolygon));
     });
     it('should return false when provided a MultiPolygon object without coordinates', function () {
       var MultiPolygon = valid.MultiPolygon();
       delete MultiPolygon.coordinates;
-      assert(!GeoJSON.isMultiPolygon(MultiPolygon));
+      assert(!gjtk.isMultiPolygon(MultiPolygon));
     });
     it('should return false when provided nothing', function () {
-      assert(!GeoJSON.isMultiPolygon());
+      assert(!gjtk.isMultiPolygon());
     });
   });
 
   describe('isGeometryCollection', function () {
     it('should return true when provided a valid GeometryCollection object', function () {
-      assert(GeoJSON.isGeometryCollection(valid.GeometryCollection()));
+      assert(gjtk.isGeometryCollection(valid.GeometryCollection()));
     });
     it('should return false when provided a GeometryCollection object without a type', function () {
       var GeometryCollection = valid.GeometryCollection();
       delete GeometryCollection.type;
-      assert(!GeoJSON.isGeometryCollection(GeometryCollection));
+      assert(!gjtk.isGeometryCollection(GeometryCollection));
     });
     it('should return false when provided a GeometryCollection object without geometries', function () {
       var GeometryCollection = valid.GeometryCollection();
       delete GeometryCollection.geometries;
-      assert(!GeoJSON.isGeometryCollection(GeometryCollection));
+      assert(!gjtk.isGeometryCollection(GeometryCollection));
     });
     it('should return false when provided nothing', function () {
-      assert(!GeoJSON.isGeometryCollection());
+      assert(!gjtk.isGeometryCollection());
     });
   });
 
   describe('isFeature', function () {
     it('should return true when provided a valid Feature object', function () {
-      assert(GeoJSON.isFeature(valid.Feature()));
+      assert(gjtk.isFeature(valid.Feature()));
     });
     it('should return false when provided a Feature object without a type', function () {
       var Feature = valid.Feature();
       delete Feature.type;
-      assert(!GeoJSON.isFeature(Feature));
+      assert(!gjtk.isFeature(Feature));
     });
     it('should return false when provided a Feature object without geometry', function () {
       var Feature = valid.Feature();
       delete Feature.geometry;
-      assert(!GeoJSON.isFeature(Feature));
+      assert(!gjtk.isFeature(Feature));
     });
     it('should return false when provided nothing', function () {
-      assert(!GeoJSON.isFeature());
+      assert(!gjtk.isFeature());
     });
   });
 
   describe('isFeatureCollection', function () {
     it('should return true when provided a valid FeatureCollection object', function () {
-      assert(GeoJSON.isFeatureCollection(valid.FeatureCollection()));
+      assert(gjtk.isFeatureCollection(valid.FeatureCollection()));
     });
     it('should return false when provided a FeatureCollection object without a type', function () {
       var FeatureCollection = valid.FeatureCollection();
       delete FeatureCollection.type;
-      assert(!GeoJSON.isFeatureCollection(FeatureCollection));
+      assert(!gjtk.isFeatureCollection(FeatureCollection));
     });
     it('should return false when provided a FeatureCollection object without features', function () {
       var FeatureCollection = valid.FeatureCollection();
       delete FeatureCollection.features;
-      assert(!GeoJSON.isFeatureCollection(FeatureCollection));
+      assert(!gjtk.isFeatureCollection(FeatureCollection));
     });
     it('should return false when provided nothing', function () {
-      assert(!GeoJSON.isFeatureCollection());
+      assert(!gjtk.isFeatureCollection());
     });
   });
 
   describe('isCRS', function () {
     it('should return true when provided a valid CRS object', function () {
-      assert(GeoJSON.isCRS(valid.CRS()));
+      assert(gjtk.isCRS(valid.CRS()));
     });
     it('should return false when provided a CRS object without a type', function () {
       var crs = valid.CRS();
       delete crs.type;
-      assert(!GeoJSON.isCRS(crs));
+      assert(!gjtk.isCRS(crs));
     });
     it('should return false when provided a CRS object without properties', function () {
       var crs = valid.CRS();
       delete crs.properties;
-      assert(!GeoJSON.isCRS(crs));
+      assert(!gjtk.isCRS(crs));
     });
     it('should return false when provided nothing', function () {
-      assert(!GeoJSON.isCRS());
+      assert(!gjtk.isCRS());
     });
   });
 
   describe('isLink', function () {
     it('should return true when provided a valid Link object', function () {
-      assert(GeoJSON.isLink(valid.Link()));
+      assert(gjtk.isLink(valid.Link()));
     });
     it('should return true when provided a Link object without a type', function () {
       var Link = valid.Link();
       delete Link.type;
-      assert(GeoJSON.isLink(Link));
+      assert(gjtk.isLink(Link));
     });
     it('should return false when provided a Link object without href', function () {
       var Link = valid.Link();
       delete Link.href;
-      assert(!GeoJSON.isLink(Link));
+      assert(!gjtk.isLink(Link));
     });
     it('should return false when provided nothing', function () {
-      assert(!GeoJSON.isLink());
+      assert(!gjtk.isLink());
     });
   });
 
   describe('isBbox', function () {
     xit('should return true when provided a valid Bbox', function () {
-      assert(GeoJSON.isBbox(valid.Bbox()));
+      assert(gjtk.isBbox(valid.Bbox()));
     });
   });
 
   describe('Point', function () {
     it('should return a valid Point object when provided a valid Position', function () {
-      assert(GeoJSON.isPoint(GeoJSON.Point(valid.Position())));
+      assert(gjtk.isPoint(gjtk.Point(valid.Position())));
     });
   });
 
   describe('Feature', function () {
     it('should return a valid Feature object when provided a valid Geometry', function () {
-      assert(GeoJSON.isFeature(GeoJSON.Feature(valid.Geometry(), {})));
+      assert(gjtk.isFeature(gjtk.Feature(valid.Geometry(), {})));
     });
   });
 
   describe('FeatureCollection', function () {
     it('should return a valid FeatureCollection object when provided nothing', function () {
-      assert(GeoJSON.isFeatureCollection(GeoJSON.FeatureCollection()));
+      assert(gjtk.isFeatureCollection(gjtk.FeatureCollection()));
     });
     it('should return a valid FeatureCollection object when provided a valid Feature', function () {
-      assert(GeoJSON.isFeatureCollection(GeoJSON.FeatureCollection(valid.Feature())));
+      assert(gjtk.isFeatureCollection(gjtk.FeatureCollection(valid.Feature())));
     });
   });
 
   describe('GeometryCollection', function () {
     it('should return a valid GeometryCollection object when provided nothing', function () {
-      assert(GeoJSON.isGeometryCollection(GeoJSON.GeometryCollection()));
+      assert(gjtk.isGeometryCollection(gjtk.GeometryCollection()));
     });
     it('should return a valid GeometryCollection object when provided a valid Geometry', function () {
-      assert(GeoJSON.isGeometryCollection(GeoJSON.GeometryCollection(valid.Geometry())));
+      assert(gjtk.isGeometryCollection(gjtk.GeometryCollection(valid.Geometry())));
     });
   });
 
