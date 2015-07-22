@@ -187,7 +187,8 @@ var valid = {
 
 };
 
-describe('GeoJSON', function () {
+
+describe('Validation Methods', function () {
 
   describe('isGeoJSON', function () {
     it('should return true when provided a valid Geometry object', function () {
@@ -503,6 +504,29 @@ describe('GeoJSON', function () {
     });
   });
 
+});
+
+
+describe('Utility Methods', function () {
+
+  describe('equalPositions', function () {
+    it('should return true when provided identical Positions', function () {
+      var position = valid.Position();
+      assert(gjtk.equalPositions(position, position));
+    });
+    it('should return false when provided different Positions', function () {
+      var positionA = valid.Position();
+      var positionB = JSON.parse(JSON.stringify(positionA));
+      positionB[0] += 1
+      assert(!gjtk.equalPositions(positionA, positionB));
+    });
+  });
+
+});
+
+
+describe('Template Methods', function () {
+
   describe('Point', function () {
     it('should return a valid Point object when provided a valid Position', function () {
       assert(gjtk.isPoint(gjtk.Point(valid.Position())));
@@ -532,5 +556,10 @@ describe('GeoJSON', function () {
       assert(gjtk.isGeometryCollection(gjtk.GeometryCollection(valid.Geometry())));
     });
   });
+
+});
+
+
+describe('Extraction Methods', function () {
 
 });
