@@ -13,7 +13,7 @@ npm install gjtk
 
 ## Usage
 ``` js
-var GeoJSON = require('gjtk');
+var gjtk = require('gjtk');
 ```
 
 ## Validation Methods
