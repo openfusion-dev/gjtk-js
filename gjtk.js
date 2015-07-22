@@ -5,8 +5,8 @@ var gjtk = module.exports = {
 
 
 ///////////////////////////////////////////////////////////////////// VALIDATION
-    
-    
+
+
     isGeoJSON: function ( x ) {
         // Validate a GeoJSON object.
         return (
@@ -15,8 +15,8 @@ var gjtk = module.exports = {
             gjtk.isFeatureCollection(x)
         );
     },
-    
-    
+
+
     isGeometry: function ( x ) {
         // Validate a GeoJSON Geometry.
         return (
@@ -29,8 +29,8 @@ var gjtk = module.exports = {
             gjtk.isGeometryCollection(x)
         );
     },
-    
-    
+
+
     isPosition: function ( x ) {
         // Validate a GeoJSON Position.
         return (
@@ -49,8 +49,8 @@ var gjtk = module.exports = {
         // Validate the coordinates of a GeoJSON Point.
         return gjtk.isPosition(x);
     },
-    
-    
+
+
     isMultiPointCoordinates: function ( x ) {
         // Validate the coordinates of a GeoJSON MultiPoint.
         return (
@@ -58,8 +58,8 @@ var gjtk = module.exports = {
             x.every(gjtk.isPosition)
         );
     },
-    
-    
+
+
     isLineStringCoordinates: function ( x ) {
         // Validate the coordinates of a GeoJSON LineString.
         return (
@@ -68,8 +68,8 @@ var gjtk = module.exports = {
             gjtk.isMultiPointCoordinates(x)
         );
     },
-    
-    
+
+
     isLinearRingCoordinates: function ( x ) {
         // Validate the coordinates of a GeoJSON LinearRing.
         return (
@@ -79,8 +79,8 @@ var gjtk = module.exports = {
             gjtk.equalPositions(x[0],x[x.length-1])
         );
     },
-    
-    
+
+
     isMultiLineStringCoordinates: function ( x ) {
         // Validate the coordinates of a GeoJSON MultiLineString.
         return (
@@ -88,8 +88,8 @@ var gjtk = module.exports = {
             x.every(gjtk.isLineStringCoordinates)
         );
     },
-    
-    
+
+
     isPolygonCoordinates: function ( x ) {
         // Validate the coordinates of a GeoJSON Polygon.
         return (
@@ -106,8 +106,8 @@ var gjtk = module.exports = {
             )
         );
     },
-    
-    
+
+
     isMultiPolygonCoordinates: function ( x ) {
         // Validate the coordinates of a GeoJSON MultiPolygon.
         return (
@@ -115,8 +115,8 @@ var gjtk = module.exports = {
             x.every(gjtk.isPolygonCoordinates)
         );
     },
-    
-    
+
+
     isPoint: function ( x ) {
         // Validate a GeoJSON Point.
         return (
@@ -127,8 +127,8 @@ var gjtk = module.exports = {
             gjtk.validBbox(x)
         );
     },
-    
-    
+
+
     isMultiPoint: function ( x ) {
         // Validate a GeoJSON MultiPoint.
         return (
@@ -139,8 +139,8 @@ var gjtk = module.exports = {
             gjtk.validBbox(x)
         );
     },
-    
-    
+
+
     isLineString: function ( x ) {
         // Validate a GeoJSON LineString.
         return (
@@ -151,8 +151,8 @@ var gjtk = module.exports = {
             gjtk.validBbox(x)
         );
     },
-    
-    
+
+
     isMultiLineString: function ( x ) {
         // Validate a GeoJSON MultiLineString.
         return (
@@ -163,8 +163,8 @@ var gjtk = module.exports = {
             gjtk.validBbox(x)
         );
     },
-    
-    
+
+
     isPolygon: function ( x ) {
         // Validate a GeoJSON Polygon.
         return (
@@ -175,8 +175,8 @@ var gjtk = module.exports = {
             gjtk.validBbox(x)
         );
     },
-    
-    
+
+
     isMultiPolygon: function ( x ) {
         // Validate a GeoJSON MultiPolygon.
         return (
@@ -187,8 +187,8 @@ var gjtk = module.exports = {
             gjtk.validBbox(x)
         );
     },
-    
-    
+
+
     isGeometryCollection: function ( x ) {
         // Validate a GeoJSON GeometryCollection.
         return (
@@ -200,8 +200,8 @@ var gjtk = module.exports = {
             gjtk.validBbox(x)
         );
     },
-    
-    
+
+
     isFeature: function ( x ) {
         // Validate a GeoJSON Feature.
         return (
@@ -216,8 +216,8 @@ var gjtk = module.exports = {
             )
         );
     },
-    
-    
+
+
     isFeatureCollection: function ( x ) {
         // Validate a GeoJSON FeatureCollection.
         return (
@@ -229,8 +229,8 @@ var gjtk = module.exports = {
             gjtk.validBbox(x)
         );
     },
-    
-    
+
+
     isCRS: function ( x ) {
         // Validate a GeoJSON Coordinate Reference System.
         return (
@@ -249,9 +249,9 @@ var gjtk = module.exports = {
             )
         );
     },
-    
-    
-    validCRS: function ( x ) {
+
+
+    hasCRS: function ( x ) {
         // Validate the CRS property of a GeoJSON object.
         return (
             x != null &&
@@ -267,9 +267,9 @@ var gjtk = module.exports = {
     isBbox: function ( x ) {
         throw Error('Not Implemented')
     },
-    
-    
-    validBbox: function ( x ) {
+
+
+    hasBbox: function ( x ) {
         // Validate the bbox property of a GeoJSON object.
         return (
             x != null &&
@@ -283,8 +283,8 @@ var gjtk = module.exports = {
             )
         );
     },
-    
-    
+
+
     isLink: function ( x ) {
         // Validate a GeoJSON Link.
         try {
@@ -308,8 +308,8 @@ var gjtk = module.exports = {
 
 
 //////////////////////////////////////////////////////////////////////// UTILITY
-    
-    
+
+
     equalPositions: function ( a , b ) {
         // Compare two GeoJSON Positions for equality.
         return (
@@ -322,8 +322,8 @@ var gjtk = module.exports = {
             )
         );
     },
-    
-    
+
+
     containedPolygon: function ( inner , outer ) {
         // Determine whether one GeoJSON LinearRing contains another.
         return inner.every(
@@ -335,8 +335,8 @@ var gjtk = module.exports = {
 
 
 /////////////////////////////////////////////////////////////////////// TEMPLATE
-    
-    
+
+
     Point: function ( Position ) {
         // Create a valid GeoJSON Point geometry.
         if (!gjtk.isPosition(Position)) throw Error('Invalid Position');
@@ -345,8 +345,8 @@ var gjtk = module.exports = {
           "coordinates": Position
         };
     },
-    
-    
+
+
     Feature: function ( Geometry , properties ) {
         // Create a valid GeoJSON Feature.
         var Feature = {
@@ -357,8 +357,8 @@ var gjtk = module.exports = {
         if (gjtk.isGeometry(Geometry)) Feature.geometry = Geometry;
         return Feature;
     },
-    
-    
+
+
     FeatureCollection: function ( Features ) {
         // Create a valid GeoJSON FeatureCollection.
         var FeatureCollection = {
@@ -377,8 +377,8 @@ var gjtk = module.exports = {
         );
         return FeatureCollection;
     },
-    
-    
+
+
     GeometryCollection: function ( Geometries ) {
         // Create a valid GeoJSON GeometryCollection.
         var GeometryCollection = {
@@ -400,8 +400,8 @@ var gjtk = module.exports = {
 
 
 ///////////////////////////////////////////////////////////////////// EXTRACTION
-    
-    
+
+
     positionsOf: function ( geojson ) {
         // Find all the Positions in a valid GeoJSON object.
         var positions = [];
@@ -452,8 +452,8 @@ var gjtk = module.exports = {
         }
         return positions;
     },
-    
-    
+
+
     featuresOf: function ( geojson ) {
         // Find all Features in a valid GeoJSON object.
         var features = [];
@@ -475,8 +475,8 @@ var gjtk = module.exports = {
         }
         return features;
     },
-    
-    
+
+
     geometriesOf: function ( geojson ) {
         // Find all Geometries in a valid GeoJSON object.
         var geometries = [];
@@ -515,7 +515,22 @@ var gjtk = module.exports = {
                 break;
         }
         return geometries;
+    },
+
+
+///////////////////////////////////////////////////////////////////// DEPRECATED
+
+
+    validCRS: function ( x ) {
+        // DEPRECATED: Use hasCRS instead.
+        return gjtk.hasCRS(x);
+    },
+    
+    
+    validBbox: function ( x ) {
+        // DEPRECATED: Use hasBbox instead.
+        return gjtk.hasBbox(x);
     }
-    
-    
+
+
 };
