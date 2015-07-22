@@ -1,11 +1,13 @@
 var GeoJSON = require('../GeoJSON');
 var assert = require('assert');
+
+///////// VALID DATA \\\\\\\\\
 var valid = {
 
   Position: function () {
     var length = (Math.round(Math.random()*100)%6)+2;
     var Position = [];
-    for (var i=0; i < length ;++i) {
+    for (var i=0; i < length; ++i) {
         Position.push((Math.random()-0.5)*100);
     };
     return Position;
@@ -18,7 +20,7 @@ var valid = {
   MultiPointCoordinates: function () {
     var length = Math.round(Math.random()*100)%6;
     var MultiPointCoordinates = [];
-    for (var i=0; i < length ;++i) {
+    for (var i=0; i < length; ++i) {
         MultiPointCoordinates.push(valid.Position());
     };
     return MultiPointCoordinates;
@@ -45,7 +47,7 @@ var valid = {
   MultiLineStringCoordinates: function () {
     var length = Math.round(Math.random()*100)%6;
     var MultiLineStringCoordinates = [];
-    for (var i=0; i < length ;++i) {
+    for (var i=0; i < length; ++i) {
         MultiLineStringCoordinates.push(valid.LineStringCoordinates());
     };
     return MultiLineStringCoordinates;
@@ -65,7 +67,7 @@ var valid = {
   MultiPolygonCoordinates: function () {
     var length = Math.round(Math.random()*100)%6;
     var MultiPolygonCoordinates = [];
-    for (var i=0; i < length ;++i) {
+    for (var i=0; i < length; ++i) {
         MultiPolygonCoordinates.push(valid.PolygonCoordinates());
     };
     return MultiPolygonCoordinates;
@@ -129,7 +131,7 @@ var valid = {
   GeometryCollection: function () {
     var length = Math.round(Math.random()*100)%3;
     var geometries = [];
-    for (var i=0; i < length ;++i) {
+    for (var i=0; i < length; ++i) {
         geometries.push(valid.Geometry());
     };
     return {
@@ -149,7 +151,7 @@ var valid = {
   FeatureCollection: function () {
     var length = Math.round(Math.random()*100)%6;
     var features = [];
-    for (var i=0; i < length ;++i) {
+    for (var i=0; i < length; ++i) {
         features.push(valid.Feature());
     };
     return {
@@ -187,8 +189,10 @@ var valid = {
 
 };
 
+/////////////////// GEOJSON TESTS \\\\\\\\\\\\\\\\\\\
 describe('GeoJSON', function () {
 
+////////////////// VALIDATION TESTS \\\\\\\\\\\\\\\\\
   describe('isGeoJSON', function () {
     it('should return true when provided a valid Geometry object', function () {
       assert(GeoJSON.isGeoJSON(valid.Geometry()));
@@ -533,4 +537,51 @@ describe('GeoJSON', function () {
     });
   });
 
+//////////////////////// UTILITY TESTS \\\\\\\\\\\\\\\\\\\\\\\\
+ describe('equalPositions', function () {
+    it('should return true when provided two valid Positions containing the same element values', function () {
+      var elementA = valid.Position();
+      var elementB = JSON.parse(JSON.stringify(elementA))
+      assert(GeoJSON.isPosition(elementA));
+      assert(GeoJSON.isPosition(elementB));
+      assert(GeoJSON.equalPositions(elementA, elementB));
+    });
+    it('should return false when provided two valid Positions containing the different element values', function () {
+      // there may be a small change that they equal depending on how Math.random creates its numbers
+      var elementA = valid.Position()
+      var elementB = valid.Position()
+      assert(GeoJSON.isPosition(elementA));
+      assert(GeoJSON.isPosition(elementB));
+      assert(!GeoJSON.equalPositions(elementA, elementB));
+    });
+  });
+
+  describe('containedPolygon', function () {
+    var elementA = valid.LinearRingCoordinates();
+    var elementB = []
+    for(var x = 0; x < elementA.length; x++) {
+      position = []
+      for (var i = 0; i < elementA[x].length; i++) {
+        if (elementA[x][i] < 0) {
+          position.push(elementA[x][i] + 1);
+        } else {
+          position.push(elementA[x][i] - 1);
+        }
+      }
+      elementB.push(position)
+    }
+    it('should return true when first Position is inside second Position', function () {
+      assert(GeoJSON.isLinearRingCoordinates(elementA));
+      assert(GeoJSON.isLinearRingCoordinates(elementB));
+      assert(GeoJSON.containedPolygon(elementB, elementA));
+    });
+    it('should return false when first Position is not inside second Position', function () {
+      assert(GeoJSON.isLinearRingCoordinates(elementA));
+      assert(GeoJSON.isLinearRingCoordinates(elementB));
+      assert(!GeoJSON.containedPolygon(elementB, elementA));
+
+    });
+  });
+
 });
+
