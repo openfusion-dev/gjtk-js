@@ -328,7 +328,7 @@ var gjtk = module.exports = {
         // Determine whether one GeoJSON LinearRing contains another.
         return inner.every(
             function ( Position ) {
-                return inside(Position,outer);
+                return inside([Position[0], Position[1]], outer);
             }
         );
     },

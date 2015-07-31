@@ -531,7 +531,14 @@ describe('Comparison Methods', function () {
   });
 
   describe('containedPolygon', function () {
-    // TODO
+    var inner = [[1, 1], [1, 2], [2, 2], [2, 1], [1, 1]];
+    var outer = [[0, 0], [0, 5], [5, 5], [5, 0], [0, 0]];
+    it('should return true when provided a LinearRing that contains another LinearRing.', function () {
+      assert(gjtk.containedPolygon(inner, outer));
+    });
+    it('should return false when provided a LinearRing that does not contain another LinearRing.', function () {
+      assert(!gjtk.containedPolygon(outer, inner));
+    });
   });
 
 });
