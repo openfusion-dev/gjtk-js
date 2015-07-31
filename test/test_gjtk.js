@@ -515,7 +515,7 @@ describe('Validation Methods', function () {
 });
 
 
-describe('Utility Methods', function () {
+describe('Comparison Methods', function () {
 
   describe('equalPositions', function () {
     it('should return true when provided identical Positions', function () {
