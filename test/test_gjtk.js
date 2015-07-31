@@ -503,7 +503,7 @@ describe('Validation Methods', function () {
   });
 
   describe('isBbox', function () {
-    xit('should return true when provided a valid Bbox', function () {
+    it('should return true when provided a valid Bbox', function () {
       assert(gjtk.isBbox(valid.Bbox()));
     });
   });

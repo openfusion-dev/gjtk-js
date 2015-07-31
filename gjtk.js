@@ -287,7 +287,12 @@ var gjtk = module.exports = {
 
 
     isBbox: function ( x ) {
-        throw Error('Not Implemented')
+        // Validate a GeoJSON Bounding Box.
+        if (!Array.isArray(x)) return false;
+        if (x.length%2 !== 0) return false;
+        var pivot = x.length/2;
+        for (var i=0; i < pivot; ++i) if (x[i] > x[i+pivot]) return false;
+        return true;
     },
 
 
@@ -297,11 +302,7 @@ var gjtk = module.exports = {
             x != null &&
             (
                 typeof x.bbox === 'undefined' ||
-                (
-                    Array.isArray(x.bbox) &&
-                    x.bbox.length%2 === 0 &&
-                    gjtk.isBbox()
-                )
+                gjtk.isBbox(x.bbox)
             )
         );
     },
