@@ -582,15 +582,152 @@ describe('Template Methods', function () {
 describe('Extraction Methods', function () {
 
   describe('positionsOf', function () {
-    // TODO
+    it('should return valid positions when provided a valid Point', function () {
+      gjtk.positionsOf(valid.Point()).every(
+        function ( Position ) {
+          assert(gjtk.isPosition(Position));
+        }
+      );
+    });
+    it('should return valid positions when provided a valid MultiPoint', function () {
+      gjtk.positionsOf(valid.MultiPoint()).every(
+        function ( Position ) {
+          assert(gjtk.isPosition(Position));
+        }
+      );
+    });
+    it('should return valid positions when provided a valid LineString', function () {
+      gjtk.positionsOf(valid.LineString()).every(
+        function ( Position ) {
+          assert(gjtk.isPosition(Position));
+        }
+      );
+    });
+    it('should return valid positions when provided a valid MultiLineString', function () {
+      gjtk.positionsOf(valid.MultiLineString()).every(
+        function ( Position ) {
+          assert(gjtk.isPosition(Position));
+        }
+      );
+    });
+    it('should return valid positions when provided a valid Polygon', function () {
+      gjtk.positionsOf(valid.Polygon()).every(
+        function ( Position ) {
+          assert(gjtk.isPosition(Position));
+        }
+      );
+    });
+    it('should return valid positions when provided a valid MultiPolygon', function () {
+      gjtk.positionsOf(valid.MultiPolygon()).every(
+        function ( Position ) {
+          assert(gjtk.isPosition(Position));
+        }
+      );
+    });
+    it('should return valid positions when provided a valid GeometryCollection', function () {
+      gjtk.positionsOf(valid.GeometryCollection()).every(
+        function ( Position ) {
+          assert(gjtk.isPosition(Position));
+        }
+      );
+    });
+    it('should return valid positions when provided a valid Feature', function () {
+      gjtk.positionsOf(valid.Feature()).every(
+        function ( Position ) {
+          assert(gjtk.isPosition(Position));
+        }
+      );
+    });
+    it('should return valid positions when provided a valid FeatureCollection', function () {
+      gjtk.positionsOf(valid.FeatureCollection()).every(
+        function ( Position ) {
+          assert(gjtk.isPosition(Position));
+        }
+      );
+    });
   });
 
   describe('featuresOf', function () {
-    // TODO
+    it('should return valid features when provided a valid Feature', function () {
+      gjtk.featuresOf(valid.Feature()).every(
+        function ( Feature ) {
+          assert(gjtk.isFeature(Feature));
+        }
+      );
+    });
+    it('should return valid features when provided a valid FeatureCollection', function () {
+      gjtk.featuresOf(valid.FeatureCollection()).every(
+        function ( Feature ) {
+          assert(gjtk.isFeature(Feature));
+        }
+      );
+    });
   });
 
   describe('geometriesOf', function () {
-    // TODO
+    it('should return valid geometries when provided a valid Point', function () {
+      gjtk.geometriesOf(valid.Point()).every(
+        function ( Geometry ) {
+          assert(gjtk.isGeometry(Geometry));
+        }
+      );
+    });
+    it('should return valid geometries when provided a valid MultiPoint', function () {
+      gjtk.geometriesOf(valid.MultiPoint()).every(
+        function ( Geometry ) {
+          assert(gjtk.isGeometry(Geometry));
+        }
+      );
+    });
+    it('should return valid geometries when provided a valid LineString', function () {
+      gjtk.geometriesOf(valid.LineString()).every(
+        function ( Geometry ) {
+          assert(gjtk.isGeometry(Geometry));
+        }
+      );
+    });
+    it('should return valid geometries when provided a valid MultiLineString', function () {
+      gjtk.geometriesOf(valid.MultiLineString()).every(
+        function ( Geometry ) {
+          assert(gjtk.isGeometry(Geometry));
+        }
+      );
+    });
+    it('should return valid geometries when provided a valid Polygon', function () {
+      gjtk.geometriesOf(valid.Polygon()).every(
+        function ( Geometry ) {
+          assert(gjtk.isGeometry(Geometry));
+        }
+      );
+    });
+    it('should return valid geometries when provided a valid MultiPolygon', function () {
+      gjtk.geometriesOf(valid.MultiPolygon()).every(
+        function ( Geometry ) {
+          assert(gjtk.isGeometry(Geometry));
+        }
+      );
+    });
+    it('should return valid geometries when provided a valid GeometryCollection', function () {
+      gjtk.geometriesOf(valid.GeometryCollection()).every(
+        function ( Geometry ) {
+          assert(gjtk.isGeometry(Geometry));
+        }
+      );
+    });
+    it('should return valid geometries when provided a valid Feature', function () {
+      gjtk.geometriesOf(valid.Feature()).every(
+        function ( Geometry ) {
+          assert(gjtk.isGeometry(Geometry));
+        }
+      );
+    });
+    it('should return valid geometries when provided a valid FeatureCollection', function () {
+      gjtk.geometriesOf(valid.FeatureCollection()).every(
+        function ( Geometry ) {
+          assert(gjtk.isGeometry(Geometry));
+        }
+      );
+    });
   });
 
 });
