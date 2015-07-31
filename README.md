@@ -310,7 +310,7 @@ returns `true` when passed a valid [GeoJSON Coordinate Reference System](http://
 }
 ```
 
-### validCRS
+### hasCRS
 returns `true` when passed an object that validly specifies a [GeoJSON Coordinate Reference System](http://geojson.org/geojson-spec.html#coordinate-reference-system-objects), otherwise `false`
 
 > The coordinate reference system (CRS) of a GeoJSON object is determined by its "crs" member (referred to as the CRS object below). If an object has no crs member, then its parent or grandparent object's crs member may be acquired. If no crs member can be so acquired, the default CRS shall apply to the GeoJSON object.
@@ -337,7 +337,7 @@ returns `true` when passed a valid [GeoJSON Bounding Box](http://geojson.org/geo
 [-180.0, -90.0, 180.0, 90.0]
 ```
 
-### validBbox (partially implemented)
+### hasBbox (partially implemented)
 returns `true` when passed an object that validly specifies a [GeoJSON Bounding Box](http://geojson.org/geojson-spec.html#bounding-boxes), otherwise `false`
 
 #### example
