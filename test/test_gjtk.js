@@ -480,7 +480,21 @@ describe('Validation Methods', function () {
   });
 
   describe('hasCRS', function () {
-    // TODO
+    it('should return true when provided a Geometry with a valid CRS', function () {
+      var GeometryCRS = valid.Geometry()
+      GeometryCRS.crs = valid.CRS()
+      assert(gjtk.hasBbox(GeometryCRS));
+    });
+    it('should return true when provided a Feature with a valid CRS', function () {
+      var FeatureCRS = valid.Feature()
+      FeatureCRS.crs = valid.CRS()
+      assert(gjtk.hasBbox(FeatureCRS));
+    });
+    it('should return true when provided a FeatureCollection with a valid CRS', function () {
+      var FeatureCollectionCRS = valid.FeatureCollection()
+      FeatureCollectionCRS.crs = valid.CRS()
+      assert(gjtk.hasBbox(FeatureCollectionCRS));
+    });
   });
 
   describe('isLink', function () {
@@ -509,7 +523,21 @@ describe('Validation Methods', function () {
   });
 
   describe('hasBbox', function () {
-    // TODO
+    it('should return true when provided a Geometry with a valid Bbox', function () {
+      var GeometryBbox = valid.Geometry()
+      GeometryBbox.bbox = valid.Bbox()
+      assert(gjtk.hasBbox(GeometryBbox));
+    });
+    it('should return true when provided a Feature with a valid Bbox', function () {
+      var FeatureBbox = valid.Feature()
+      FeatureBbox.bbox = valid.Bbox()
+      assert(gjtk.hasBbox(FeatureBbox));
+    });
+    it('should return true when provided a FeatureCollection with a valid Bbox', function () {
+      var FeatureCollectionBbox = valid.FeatureCollection()
+      FeatureCollectionBbox.bbox = valid.Bbox()
+      assert(gjtk.hasBbox(FeatureCollectionBbox));
+    });
   });
 
 });
