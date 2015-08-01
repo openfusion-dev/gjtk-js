@@ -11,7 +11,7 @@ var gjtk = module.exports = {
         // Validate a GeoJSON object.
         return (
             gjtk.isGeometry(x) ||
-            gjtk.isFeature(x)  ||
+            gjtk.isFeature(x) ||
             gjtk.isFeatureCollection(x)
         );
     },
@@ -123,8 +123,8 @@ var gjtk = module.exports = {
             x != null &&
             x.type === 'Point' &&
             gjtk.isPointCoordinates(x.coordinates) &&
-            gjtk.validCRS(x) &&
-            gjtk.validBbox(x)
+            gjtk.hasCRS(x) &&
+            gjtk.hasBbox(x)
         );
     },
 
@@ -135,8 +135,8 @@ var gjtk = module.exports = {
             x != null &&
             x.type === 'MultiPoint' &&
             gjtk.isMultiPointCoordinates(x.coordinates) &&
-            gjtk.validCRS(x) &&
-            gjtk.validBbox(x)
+            gjtk.hasCRS(x) &&
+            gjtk.hasBbox(x)
         );
     },
 
@@ -147,8 +147,8 @@ var gjtk = module.exports = {
             x != null &&
             x.type === 'LineString' &&
             gjtk.isLineStringCoordinates(x.coordinates) &&
-            gjtk.validCRS(x) &&
-            gjtk.validBbox(x)
+            gjtk.hasCRS(x) &&
+            gjtk.hasBbox(x)
         );
     },
 
@@ -159,8 +159,8 @@ var gjtk = module.exports = {
             x != null &&
             x.type === 'MultiLineString' &&
             gjtk.isMultiLineStringCoordinates(x.coordinates) &&
-            gjtk.validCRS(x) &&
-            gjtk.validBbox(x)
+            gjtk.hasCRS(x) &&
+            gjtk.hasBbox(x)
         );
     },
 
@@ -171,8 +171,8 @@ var gjtk = module.exports = {
             x != null &&
             x.type === 'Polygon' &&
             gjtk.isPolygonCoordinates(x.coordinates) &&
-            gjtk.validCRS(x) &&
-            gjtk.validBbox(x)
+            gjtk.hasCRS(x) &&
+            gjtk.hasBbox(x)
         );
     },
 
@@ -183,8 +183,8 @@ var gjtk = module.exports = {
             x != null &&
             x.type === 'MultiPolygon' &&
             gjtk.isMultiPolygonCoordinates(x.coordinates) &&
-            gjtk.validCRS(x) &&
-            gjtk.validBbox(x)
+            gjtk.hasCRS(x) &&
+            gjtk.hasBbox(x)
         );
     },
 
@@ -196,8 +196,8 @@ var gjtk = module.exports = {
             x.type === 'GeometryCollection' &&
             Array.isArray(x.geometries) &&
             x.geometries.every(gjtk.isGeometry) &&
-            gjtk.validCRS(x) &&
-            gjtk.validBbox(x)
+            gjtk.hasCRS(x) &&
+            gjtk.hasBbox(x)
         );
     },
 
@@ -208,8 +208,8 @@ var gjtk = module.exports = {
             x != null &&
             x.type === 'Feature' &&
             typeof x.properties === 'object' &&
-            gjtk.validCRS(x) &&
-            gjtk.validBbox(x) &&
+            gjtk.hasCRS(x) &&
+            gjtk.hasBbox(x) &&
             (
                 x.geometry === null ||
                 gjtk.isGeometry(x.geometry)
@@ -225,8 +225,8 @@ var gjtk = module.exports = {
             x.type === 'FeatureCollection' &&
             Array.isArray(x.features) &&
             x.features.every(gjtk.isFeature) &&
-            gjtk.validCRS(x) &&
-            gjtk.validBbox(x)
+            gjtk.hasCRS(x) &&
+            gjtk.hasBbox(x)
         );
     },
 
