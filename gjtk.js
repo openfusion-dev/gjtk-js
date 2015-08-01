@@ -97,10 +97,12 @@ var gjtk = module.exports = {
             x.every(gjtk.isLinearRingCoordinates) &&
             x.every(
                 function ( LinearRingPosition , i , PolygonPosition ) {
-                    if (i == 0) return true;
-                    else return gjtk.containedPolygon(
-                        LinearRingPosition,
-                        PolygonPosition[0]
+                    return (
+                        i == 0 ||
+                        gjtk.containedPolygon(
+                            LinearRingPosition,
+                            PolygonPosition[0]
+                        )
                     );
                 }
             )
