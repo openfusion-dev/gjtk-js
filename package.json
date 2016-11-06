@@ -25,6 +25,9 @@
     "uri-js": "^2.1.0"
   },
   "devDependencies": {
-    "mocha": "^2.2.5"
+    "mocha": "^2.2.5",
+    "mocha-lcov-reporter": "^1.2.0",
+    "istanbul": "^0.4.5",
+    "coveralls": "^2.11.14"
   }
 }
