@@ -1,6 +1,6 @@
 {
   "name": "gjtk",
-  "version": "2.0.1-beta",
+  "version": "2.1.0-beta",
   "description": "GeoJSON ToolKit",
   "main": "gjtk.js",
   "scripts": {
@@ -21,8 +21,7 @@
   },
   "homepage": "https://github.com/dmtucker/gjtk-js",
   "dependencies": {
-    "point-in-polygon": "^1.0.0",
-    "uri-js": "^2.1.0"
+    "point-in-polygon": "^1.0.0"
   },
   "devDependencies": {
     "mocha": "^2.2.5",
