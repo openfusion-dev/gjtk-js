@@ -299,17 +299,35 @@ describe('gjtk', function () {
     it('should return true when provided a Geometry with a valid CRS', function () {
       var GeometryCRS = gjtk.random.Geometry()
       GeometryCRS.crs = gjtk.random.CRS()
-      assert(gjtk.hasBbox(GeometryCRS));
+      assert(gjtk.hasCRS(GeometryCRS));
     });
     it('should return true when provided a Feature with a valid CRS', function () {
       var FeatureCRS = gjtk.random.Feature()
       FeatureCRS.crs = gjtk.random.CRS()
-      assert(gjtk.hasBbox(FeatureCRS));
+      assert(gjtk.hasCRS(FeatureCRS));
     });
     it('should return true when provided a FeatureCollection with a valid CRS', function () {
       var FeatureCollectionCRS = gjtk.random.FeatureCollection()
       FeatureCollectionCRS.crs = gjtk.random.CRS()
-      assert(gjtk.hasBbox(FeatureCollectionCRS));
+      assert(gjtk.hasCRS(FeatureCollectionCRS));
+    });
+  });
+
+  describe('validCRS', function () {
+    it('should return true when provided a Geometry with a valid CRS', function () {
+      var GeometryCRS = gjtk.random.Geometry()
+      GeometryCRS.crs = gjtk.random.CRS()
+      assert(gjtk.validCRS(GeometryCRS));
+    });
+    it('should return true when provided a Feature with a valid CRS', function () {
+      var FeatureCRS = gjtk.random.Feature()
+      FeatureCRS.crs = gjtk.random.CRS()
+      assert(gjtk.validCRS(FeatureCRS));
+    });
+    it('should return true when provided a FeatureCollection with a valid CRS', function () {
+      var FeatureCollectionCRS = gjtk.random.FeatureCollection()
+      FeatureCollectionCRS.crs = gjtk.random.CRS()
+      assert(gjtk.validCRS(FeatureCollectionCRS));
     });
   });
 
@@ -353,6 +371,24 @@ describe('gjtk', function () {
       var FeatureCollectionBbox = gjtk.random.FeatureCollection()
       FeatureCollectionBbox.bbox = gjtk.random.Bbox()
       assert(gjtk.hasBbox(FeatureCollectionBbox));
+    });
+  });
+
+  describe('validBbox', function () {
+    it('should return true when provided a Geometry with a valid Bbox', function () {
+      var GeometryBbox = gjtk.random.Geometry()
+      GeometryBbox.bbox = gjtk.random.Bbox()
+      assert(gjtk.validBbox(GeometryBbox));
+    });
+    it('should return true when provided a Feature with a valid Bbox', function () {
+      var FeatureBbox = gjtk.random.Feature()
+      FeatureBbox.bbox = gjtk.random.Bbox()
+      assert(gjtk.validBbox(FeatureBbox));
+    });
+    it('should return true when provided a FeatureCollection with a valid Bbox', function () {
+      var FeatureCollectionBbox = gjtk.random.FeatureCollection()
+      FeatureCollectionBbox.bbox = gjtk.random.Bbox()
+      assert(gjtk.validBbox(FeatureCollectionBbox));
     });
   });
 

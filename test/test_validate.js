@@ -299,17 +299,17 @@ describe('gjtk.validate', function () {
     it('should return true when provided a Geometry with a valid CRS', function () {
       var GeometryCRS = gjtk.random.Geometry()
       GeometryCRS.crs = gjtk.random.CRS()
-      assert(gjtk.validate.hasBbox(GeometryCRS));
+      assert(gjtk.validate.hasCRS(GeometryCRS));
     });
     it('should return true when provided a Feature with a valid CRS', function () {
       var FeatureCRS = gjtk.random.Feature()
       FeatureCRS.crs = gjtk.random.CRS()
-      assert(gjtk.validate.hasBbox(FeatureCRS));
+      assert(gjtk.validate.hasCRS(FeatureCRS));
     });
     it('should return true when provided a FeatureCollection with a valid CRS', function () {
       var FeatureCollectionCRS = gjtk.random.FeatureCollection()
       FeatureCollectionCRS.crs = gjtk.random.CRS()
-      assert(gjtk.validate.hasBbox(FeatureCollectionCRS));
+      assert(gjtk.validate.hasCRS(FeatureCollectionCRS));
     });
   });
 
@@ -335,6 +335,15 @@ describe('gjtk.validate', function () {
   describe('isBbox', function () {
     it('should return true when provided a valid Bbox', function () {
       assert(gjtk.validate.isBbox(gjtk.random.Bbox()));
+    });
+    it('should return false when not provided an array', function () {
+      assert(!gjtk.validate.isBbox({}));
+    });
+    it('should return false when not provided an array with an even number of elements', function () {
+      assert(!gjtk.validate.isBbox(['invalid']));
+    });
+    it('should return false when not provided an invalid Bbox', function () {
+      assert(!gjtk.validate.isBbox([2, 1]));
     });
   });
 

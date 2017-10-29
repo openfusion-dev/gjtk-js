@@ -243,22 +243,17 @@ var validate = module.exports = {
 
     isLink: function ( x ) {
         // Validate a GeoJSON Link.
-        try {
-            return (
-                x != null &&
-                typeof x.href === 'string' &&
+        return (
+            x != null &&
+            typeof x.href === 'string' &&
+            (
+                typeof x.type === 'undefined' ||
                 (
-                    typeof x.type === 'undefined' ||
-                    (
-                        typeof x.type === 'string' &&
-                        x.type.length > 0
-                    )
+                    typeof x.type === 'string' &&
+                    x.type.length > 0
                 )
-            );
-        }
-        catch (e) {
-            return false;
-        }
+            )
+        );
     },
 
     isBbox: function ( x ) {
