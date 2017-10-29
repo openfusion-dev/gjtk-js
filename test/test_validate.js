@@ -336,6 +336,15 @@ describe('gjtk.validate', function () {
     it('should return true when provided a valid Bbox', function () {
       assert(gjtk.validate.isBbox(gjtk.random.Bbox()));
     });
+    it('should return false when not provided an array', function () {
+      assert(!gjtk.validate.isBbox({}));
+    });
+    it('should return false when not provided an array with an even number of elements', function () {
+      assert(!gjtk.validate.isBbox(['invalid']));
+    });
+    it('should return false when not provided an invalid Bbox', function () {
+      assert(!gjtk.validate.isBbox([2, 1]));
+    });
   });
 
   describe('hasBbox', function () {
