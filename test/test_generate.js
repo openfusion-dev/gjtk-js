@@ -14,7 +14,7 @@ describe('gjtk.generate', function () {
 
   describe('Feature', function () {
     it('should return a valid Feature object when provided a valid Geometry', function () {
-      assert(gjtk.validate.isFeature(gjtk.generate.Feature(gjtk.random.Geometry(), {})));
+      assert(gjtk.validate.isFeature(gjtk.generate.Feature(gjtk.random.Geometry(), {'foo': 'bar'})));
     });
   });
 
