@@ -8,18 +8,18 @@
   },
   "repository": {
     "type": "git",
-    "url": "git://github.com/dmtucker/gjtk-js.git"
+    "url": "git://github.com/openfusion-dev/gjtk-js.git"
   },
   "keywords": [
     "geojson",
     "toolkit"
   ],
-  "author": "David Tucker <david.michael.tucker@gmail.com>",
+  "author": "David Tucker <dmtucker@ucsc.edu>",
   "license": "GPL",
   "bugs": {
-    "url": "https://github.com/dmtucker/gjtk-js/issues"
+    "url": "https://github.com/openfusion-dev/gjtk-js/issues"
   },
-  "homepage": "https://github.com/dmtucker/gjtk-js",
+  "homepage": "https://github.com/openfusion-dev/gjtk-js",
   "dependencies": {
     "point-in-polygon": "^1.0.0"
   },
