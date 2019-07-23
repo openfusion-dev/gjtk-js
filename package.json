@@ -4,7 +4,7 @@
   "description": "GeoJSON ToolKit",
   "main": "gjtk.js",
   "scripts": {
-    "test": "mocha"
+    "test": "nyc --check-coverage --branches 100 --functions 100 --lines 100 --statements 100 mocha"
   },
   "repository": {
     "type": "git",
@@ -24,9 +24,7 @@
     "point-in-polygon": "^1.0.0"
   },
   "devDependencies": {
-    "mocha": "^2.2.5",
-    "mocha-lcov-reporter": "^1.2.0",
-    "istanbul": "^0.4.5",
-    "coveralls": "^2.11.14"
+    "mocha": "^6.2.0",
+    "nyc": "^14.1.1"
   }
 }
