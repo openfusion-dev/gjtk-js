@@ -2,9 +2,6 @@
 
 `gjtk` is a library for working with [GeoJSON](http://geojson.org/).
 
-[![Dependency Status](https://img.shields.io/david/openfusion-dev/gjtk-js.svg)](https://david-dm.org/openfusion-dev/gjtk-js)
-[![NPM Version](https://img.shields.io/npm/v/gjtk.svg)](https://www.npmjs.com/package/gjtk)
-
 ## Installation
 `gjtk` is available on [npm](//www.npmjs.com/package/gjtk).
 ``` sh
